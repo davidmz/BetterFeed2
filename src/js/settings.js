@@ -74,6 +74,7 @@ if (sPage) {
 
     sendMsg("getSettings").then(sData => {
         settings = new Settings(sData, true);
+        console.log(sData, settings);
         updateInputs();
 
         // Взаимосвязь между флагами

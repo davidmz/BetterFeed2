@@ -21,15 +21,12 @@ if (MutationObserver && Promise) {
         actions.forEach(act => act());
 
         if (localStorage[lsKey] === "1") {
-            console.log("ENABLED");
-            /*
-             var e = document.createElement("script");
-             e.src = 'https://cdn.rawgit.com/davidmz/BetterFeed2/v2.0.0/build/better-feed.user.js';
-             e.type = "text/javascript";
-             e.charset = "utf-8";
-             e.async = true;
-             document.head.appendChild(e);
-             */
+            var e = document.createElement("script");
+            e.src = 'https://cdn.rawgit.com/davidmz/BetterFeed2/v2.0.0/build/better-feed.user.js';
+            e.type = "text/javascript";
+            e.charset = "utf-8";
+            e.async = true;
+            document.head.appendChild(e);
         }
     });
 }

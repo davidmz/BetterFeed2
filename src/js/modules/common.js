@@ -1,4 +1,5 @@
 import {registerModule} from "./../base/modules";
+import closestParent from "../utils/closest-parent";
 
 const module = registerModule("common", true, true);
 
@@ -17,8 +18,8 @@ module.watch(".timeline-post, .single-post", node => {
 });
 
 // User cards
-module.watch(".user-card", node => {
+module.watch(".user-card .display-name", node => {
     {
-        node.dataset.userName = node.querySelector(".display-name").getAttribute("href").substr(1);
+        closestParent(node, ".user-card").dataset.userName = node.getAttribute("href").substr(1);
     }
 });

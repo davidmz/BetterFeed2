@@ -9,6 +9,7 @@ import Messenger from "./utils/message-rpc";
 import "./modules/common";
 import "./modules/settings-link";
 import "./modules/hide-posts";
+import "./modules/posts-via";
 
 if (!/^\/(attachments|files)\//.test(location.pathname)) {
     if (!MutationObserver || !Promise) {
