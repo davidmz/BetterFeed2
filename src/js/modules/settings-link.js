@@ -5,7 +5,7 @@ import Lightbox from "../utils/lightbox";
 import {authToken} from '../utils/current-user-id.js';
 import escapeHTML from "../utils/escape-html";
 
-const version = localStorage["bf2-version"];
+const version = localStorage["bf2-version"] || "v0.0.0";
 
 const module = registerModule("settings-link", true, true);
 
@@ -22,9 +22,7 @@ module.watch(".sidebar", node => {
                 h("li", link)
             )
         ),
-        h(".box-footer",
-            "v2.0.0"
-        ),
+        h(".box-footer", version),
     );
 
     node.insertBefore(html, null);
@@ -66,7 +64,7 @@ function greenBarBefore(node) {
     const showTokenLink = h("a", "show access token");
     node.parentNode.insertBefore(
         h("p.bg-success.bf2-green",
-            `BetterFeed enabled (${"2.0.s"}) | `,
+            `BetterFeed enabled (${version}) | `,
             h("i.fa.fa-cog"), " ", sLink,
             ' | ',
             h("i.fa.fa-exclamation-triangle"), " ", showTokenLink
