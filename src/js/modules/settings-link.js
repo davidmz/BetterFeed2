@@ -5,6 +5,8 @@ import Lightbox from "../utils/lightbox";
 import {authToken} from '../utils/current-user-id.js';
 import escapeHTML from "../utils/escape-html";
 
+const version = localStorage["bf2-version"];
+
 const module = registerModule("settings-link", true, true);
 
 module.watch(".sidebar", node => {
@@ -30,10 +32,36 @@ module.watch(".sidebar", node => {
     link.addEventListener("click", () => showSettings())
 });
 
-module.watch(".bf2-settings-description", node => {
-    if (document.body.querySelector(".bf2-green")) {
-        return;
-    }
+if ("__BetterFeedOnSite" in window) {
+    // BF загружен через сайтовый загрузчик
+    module.watch(".bf2-settings-description", node => {
+        if (!document.body.querySelector(".bf2-green")) {
+            greenBarBefore(node);
+        }
+    });
+} else {
+    // BF загружен как юзерскрипт
+    module.watch(".box-body > form > h3", node => {
+        if (document.body.querySelector(".bf2-green") || node.textContent !== "Change password") {
+            return;
+        }
+        const pwdForm = node.parentNode;
+        const descNode = h("p.bf2-settings-description",
+            "BetterFeed is an add-on that improves or dramatically alters stock interface of FreeFeed (",
+            h("a", {href: "https://github.com/davidmz/BetterFeed2", target: "_blank"}, "details"),
+            "). "
+        );
+        const html = h("div",
+            h("h3.bf2-settings-header", "Add-ons"),
+            descNode,
+            h("hr")
+        );
+        pwdForm.parentNode.insertBefore(html, pwdForm);
+        greenBarBefore(descNode);
+    });
+}
+
+function greenBarBefore(node) {
     const sLink = h("a", "configure settings");
     const showTokenLink = h("a", "show access token");
     node.parentNode.insertBefore(
@@ -47,8 +75,7 @@ module.watch(".bf2-settings-description", node => {
     );
     sLink.addEventListener("click", () => showSettings());
     showTokenLink.addEventListener("click", () => showAccessToken());
-
-});
+}
 
 function showSettings() {
     const url = bfRoot + '/src/html/settings.html?origin=' + encodeURIComponent(location.origin);

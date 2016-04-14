@@ -26,6 +26,7 @@ if (sPage) {
     const
         parentOrigin = decodeURIComponent(/[?&]origin=([^&]+)/.exec(location.search)[1]),
         saveButton = document.getElementById("save-settings"),
+        checkUpdatesButton = document.getElementById("check-updates"),
         checkBoxes = forSelect(sPage, "input[type='checkbox']"),
         hidePostsFromTA = document.getElementById("hide-posts-from-users"),
         msg = new Messenger();
@@ -54,6 +55,12 @@ if (sPage) {
         sendMsg("saveSettings", settings.toJSON());
     });
 
+    checkUpdatesButton.addEventListener("click", e => {
+        const btn = e.target;
+        btn.disabled = true;
+        sendMsg("checkUpdates").then(() => btn.disabled = false);
+    });
+
     let isChanged = new Cell(false);
     let initialState = new Map;
     let currentState = () => {
@@ -74,7 +81,6 @@ if (sPage) {
 
     sendMsg("getSettings").then(sData => {
         settings = new Settings(sData, true);
-        console.log(sData, settings);
         updateInputs();
 
         // Взаимосвязь между флагами

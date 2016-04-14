@@ -41,4 +41,34 @@ function start(settings) {
         await iAm.saveProps(new Settings(o));
         location.reload(true);
     });
+
+    msg.on("checkUpdates", checkUpdates);
+}
+
+function checkUpdates() {
+    const now = Date.now();
+    const oldVersion = localStorage["bf2-version"];
+    localStorage["bf2-next-update"] = now + 3600 * 1000;
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://api.github.com/repos/davidmz/BetterFeed2/tags?page=1&per_page=1');
+    xhr.responseType = "json";
+    xhr.onload = () => {
+        try {
+            const tags = this.response;
+            if (tags.length == 1 && "name" in tags[0]) {
+                const newVersion = tags[0]["name"];
+                localStorage["bf2-version"] = newVersion;
+                localStorage["bf2-next-update"] = now + 24 * 3600 * 1000;
+                if (newVersion != oldVersion) {
+                    if (confirm(`Доступна новая версия: ${newVersion}. Она будет установлена после перезагрузки страницы.\n\nПерезагрузить страницу сейчас?`)) {
+                        location.reload(true);
+                    }
+                } else {
+                    alert(`У вас установлена последняя версия (${newVersion})`);
+                }
+            }
+        } catch (e) {
+        }
+    };
+    xhr.send();
 }
