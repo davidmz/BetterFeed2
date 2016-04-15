@@ -29,18 +29,10 @@ if (sPage) {
         checkUpdatesButton = document.getElementById("check-updates"),
         checkBoxes = forSelect(sPage, "input[type='checkbox']"),
         hidePostsFromTA = document.getElementById("hide-posts-from-users"),
-        msg = new Messenger();
+        msg = new Messenger(parentWindow, parentOrigin);
 
     /** @type {Settings|null} */
     let settings = null;
-
-    const sendMsg = msg.send.bind(msg, parentWindow, parentOrigin);
-
-    document.getElementById("check-updates").addEventListener("click", e => {
-        const btn = e.target;
-        btn.disabled = true;
-        sendMsg("checkUpdates").then(() => btn.disabled = false);
-    });
 
     saveButton.addEventListener("click", () => {
         saveButton.disabled = true;
@@ -52,13 +44,13 @@ if (sPage) {
             settings.hidePostsFrom.clear();
             (hidePostsFromTA.value.toLowerCase().match(/\w+/g) || []).forEach(u => settings.hidePostsFrom.add(u));
         }
-        sendMsg("saveSettings", settings.toJSON());
+        msg.send("saveSettings", settings.toJSON());
     });
 
     checkUpdatesButton.addEventListener("click", e => {
         const btn = e.target;
         btn.disabled = true;
-        sendMsg("checkUpdates").then(() => btn.disabled = false);
+        msg.send("checkUpdates").then(() => btn.disabled = false);
     });
 
     let isChanged = new Cell(false);
@@ -79,7 +71,7 @@ if (sPage) {
         }
     };
 
-    sendMsg("getSettings").then(sData => {
+    msg.send("getSettings").then(sData => {
         settings = new Settings(sData, true);
         updateInputs();
 

@@ -19,7 +19,7 @@ if (now > nextUpdate) {
     xhr.open('GET', 'https://api.github.com/repos/davidmz/BetterFeed2/tags?page=1&per_page=1');
     xhr.responseType = "json";
     xhr.onload = function () {
-        var tags = this.response;
+        var tags = xhr.response;
         if (tags.length == 1 && "name" in tags[0]) {
             localStorage[verName] = tags[0]["name"];
             localStorage[updName] = now + 24 * 3600 * 1000;

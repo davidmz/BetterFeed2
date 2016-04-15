@@ -8,8 +8,10 @@ import Messenger from "./utils/message-rpc";
 
 import "./modules/common";
 import "./modules/settings-link";
+
 import "./modules/hide-posts";
 import "./modules/posts-via";
+import "./modules/hide-aliens";
 
 if (!/^\/(attachments|files)\//.test(location.pathname)) {
     if (!MutationObserver || !Promise) {
@@ -54,7 +56,7 @@ function checkUpdates() {
     xhr.responseType = "json";
     xhr.onload = () => {
         try {
-            const tags = this.response;
+            const tags = xhr.response;
             if (tags.length == 1 && "name" in tags[0]) {
                 const newVersion = tags[0]["name"];
                 localStorage["bf2-version"] = newVersion;

@@ -1,12 +1,13 @@
 import forSelect from "../utils/for-select";
 
-export const modules = new Map; // name → module
+export const registeredModules = new Map(); // name → module
 
 class Module {
     constructor(name, enabledByDefault = true, alwaysEnabled = false) {
         this.name = name;
         this.alwaysEnabled = alwaysEnabled;
         this.enabledByDefault = enabledByDefault;
+        this.requiredModules = [];
         this._watchers = [];
         this._initiators = [];
     }
@@ -17,6 +18,10 @@ class Module {
 
     watch(selector, callback) {
         this._watchers.push({selector, callback});
+    }
+
+    required(name) {
+        this.requiredModules.push(name);
     }
 
     _initiate(settings) {
@@ -31,7 +36,7 @@ class Module {
 
 export function registerModule(name, enabledByDefault = true, alwaysEnabled = false) {
     const m = new Module(name, enabledByDefault, alwaysEnabled);
-    modules.set(name, m);
+    registeredModules.set(name, m);
     return m;
 }
 
@@ -46,7 +51,7 @@ export function startObserver(aSettings) {
     }
     settings = aSettings;
 
-    modules.forEach(m => {
+    registeredModules.forEach(m => {
         if (settings.isModuleEnabled(m)) {
             m._initiate(settings);
         }
@@ -57,7 +62,7 @@ export function startObserver(aSettings) {
             for (let i = 0, l = mutation.addedNodes.length; i < l; i++) {
                 let node = mutation.addedNodes[i];
                 if (node.nodeType == Node.ELEMENT_NODE) {
-                    modules.forEach(m => {
+                    registeredModules.forEach(m => {
                         if (settings.isModuleEnabled(m)) {
                             m._trigger(node, settings);
                         }

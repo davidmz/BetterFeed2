@@ -67,19 +67,24 @@
 
         <p>
             <label>
+                <input type="checkbox" id="posts-via">
+                Показывать в общей ленте постов, чей комментарий или лайк принесли этот пост (если пост не от френда).
+            </label>
+        </p>
+        <p class="shift">
+            <label>
+                <input type="checkbox" id="hide-aliens" data-enabled-if="posts-via">
+                Показывать чекбокс «hide non-friends posts» в домашней ленте.
+            </label>
+        </p>
+
+        <p>
+            <label>
                 <input type="checkbox" id="hide-posts">
                 Скрывать посты, написанные пользователями:
             </label><br>
             <textarea class="form-control" id="hide-posts-from-users" data-enabled-if="hide-posts"></textarea>
         </p>
-
-        <p>
-            <label>
-                <input type="checkbox" id="posts-via">
-                Показывать в общей ленте постов, чей комментарий или лайк принесли этот пост (если пост не от френда).
-            </label>
-        </p>
-
 
     </div>
 </div>

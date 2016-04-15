@@ -4,9 +4,12 @@ const responseAction = "@response";
 
 export default class Messenger {
 
-    constructor() {
+    constructor(parentWindow = null, parentOrigin = "") {
         this.__responders = new Map();
         this.__listeners = new Map();
+
+        this.defaultWindow = parentWindow;
+        this.defaultOrigin = parentOrigin;
 
         window.addEventListener('message', event => {
             if (typeof event.data !== "object") {
@@ -28,13 +31,23 @@ export default class Messenger {
 
     /**
      *
+     * @param {String} action
+     * @param {*} value
+     * @return {Promise}
+     */
+    send(action, value = null) {
+        return this.sendEx(this.defaultWindow, this.defaultOrigin, action, value);
+    }
+
+    /**
+     *
      * @param {Window} window
      * @param {String} origin
      * @param {String} action
      * @param {*} value
      * @return {Promise}
      */
-    send(window, origin, action, value = null) {
+    sendEx(window, origin, action, value = null) {
         return new Promise(resolve => {
             const requestId = nextRequestId++;
             this.__responders.set(requestId, resolve);

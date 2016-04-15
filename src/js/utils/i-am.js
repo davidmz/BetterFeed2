@@ -1,5 +1,6 @@
 import * as api from './api';
 import * as uPics from './userpics';
+import h from "./html";
 
 const prefsName = "me.davidmz.BetterFeed2";
 
@@ -15,6 +16,7 @@ export default class IAm {
 
         this._savePropsQueue = [];
         this._savingPropsNow = false;
+        this._savingIndicator = h(".bf2-saving-settings-indicator", "Saving settings…");
     }
 
     whoIs(username) {
@@ -44,6 +46,7 @@ export default class IAm {
     async _saveProps() {
         if (this._savingPropsNow) return;
 
+        document.body.appendChild(this._savingIndicator);
         this._savingPropsNow = true;
         while (this._savePropsQueue.length > 0) {
             const json = this._savePropsQueue.shift(), nulls = {};
@@ -52,6 +55,7 @@ export default class IAm {
             await api.put(`/v1/users/${this.myID}`, JSON.stringify({user: {frontendPreferences: {[prefsName]: json}}}));
         }
         this._savingPropsNow = false;
+        document.body.removeChild(this._savingIndicator);
     }
 }
 

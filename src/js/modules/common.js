@@ -1,7 +1,14 @@
 import {registerModule} from "./../base/modules";
 import closestParent from "../utils/closest-parent";
+import onHistory from "../utils/on-history";
 
 const module = registerModule("common", true, true);
+
+// Homepage
+module.init(settings => {
+    onHistory(location => document.body.classList.toggle("bf2-homepage", location.pathname === "/"));
+});
+
 
 // Свойства постов
 module.watch(".timeline-post, .single-post", node => {
