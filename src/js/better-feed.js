@@ -12,6 +12,7 @@ import "./modules/settings-link";
 import "./modules/hide-posts";
 import "./modules/posts-via";
 import "./modules/hide-aliens";
+import "./modules/ani-gifs";
 
 if (!/^\/(attachments|files)\//.test(location.pathname)) {
     if (!MutationObserver || !Promise) {
