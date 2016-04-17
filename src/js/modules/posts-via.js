@@ -74,7 +74,7 @@ module.watch(".timeline-post:not(.bf2-post-via)", async(node) => {
         } else if (meInLikes) {
             viaEls.push("your like");
         }
-        users.forEach(u => viaEls.push(html`<span class="user-name-wrapper"><a href="/${u}">${u}</a></span>`));
+        users.forEach(u => viaEls.push(html`<a href="/${u}" class="bf2-user-link">${u}</a>`));
     }
 
     if (viaEls.length > 1) {
