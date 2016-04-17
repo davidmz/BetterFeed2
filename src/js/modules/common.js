@@ -5,8 +5,19 @@ import onHistory from "../utils/on-history";
 const module = registerModule("common", true, true);
 
 // Homepage
-module.init(settings => {
+module.init(() => {
     onHistory(location => document.body.classList.toggle("bf2-homepage", location.pathname === "/"));
+
+    document.addEventListener("click", e => {
+        if (e.button == 0 && e.target.classList.contains("bf2-user-link")) {
+            const reactLink = document.querySelector(`a:not(.bf2-user-link)[href="${CSS.escape(e.target.getAttribute("href"))}"]`);
+            if (reactLink) {
+                e.preventDefault();
+                e.target.blur();
+                reactLink.click();
+            }
+        }
+    });
 });
 
 
