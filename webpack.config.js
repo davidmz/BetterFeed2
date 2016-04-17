@@ -36,6 +36,7 @@ module.exports = [
         },
         plugins: [
             new webpack.optimize.UglifyJsPlugin({}),
+            new webpack.ProvidePlugin({'window.fetch': 'exports?self.fetch!whatwg-fetch'})
         ]
     },
     {

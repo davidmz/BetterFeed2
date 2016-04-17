@@ -13,6 +13,7 @@ import "./modules/hide-posts";
 import "./modules/posts-via";
 import "./modules/hide-aliens";
 import "./modules/ani-gifs";
+import "./modules/likecomm";
 
 if (!/^\/(attachments|files)\//.test(location.pathname)) {
     if (!MutationObserver || !Promise) {
