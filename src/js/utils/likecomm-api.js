@@ -6,9 +6,10 @@ const wsEndpoint = "wss://davidmz.me/frfrfr/likecomm/watch";
 
 export default class {
 
-    constructor(anonymous = false) {
-        this.anonymous = anonymous;
+    constructor() {
+        this.anonymous = true;
         this.listeners = [];
+        this.connectListeners = [];
     }
 
     like(commId, postId) {
@@ -44,11 +45,16 @@ export default class {
             };
         }
         ws.onMessage = msg => this.listeners.forEach(c => c(msg));
+        ws.onConnect = () => this.connectListeners.forEach(c => c());
         ws.connect();
     }
 
     onLike(callback) {
         this.listeners.push(callback);
+    }
+
+    onConnect(callback) {
+        this.connectListeners.push(callback);
     }
 
     async req(input, opts = {}) {
@@ -59,6 +65,7 @@ export default class {
             }
             opts.headers["X-Authentication-Token"] = authToken;
         }
+
         const resp = await (await fetch(input, opts)).json();
         if (resp.status == "error") {
             const e = new Error(resp.msg);

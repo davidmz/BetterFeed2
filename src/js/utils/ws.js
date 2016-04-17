@@ -21,20 +21,25 @@ export default class WS {
         }
     }
 
-    connect() {
+    async connect() {
         this._reconnectTimer = null;
         this._reconnectTimeout *= 1.5;
         if (this._reconnectTimeout > WS.maxReconnectTimeout) {
             this._reconnectTimeout = WS.maxReconnectTimeout;
         }
 
-        this.prepareConnect().then(() => {
+        try {
+            await this.prepareConnect();
+
             this.ws = new WebSocket(this.url);
             this.ws.onclose = () => this._reconnect();
             this.ws.onerror = () => this._reconnect();
             this.ws.onmessage = e => this.onMessage(JSON.parse(e.data));
             this.ws.onopen = () => this._onopen();
-        });
+        } catch (e) {
+            console.warn(`WS prepare connect error: ${e.message}`);
+            this._reconnect();
+        }
     }
 
     _onopen() {

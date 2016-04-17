@@ -2,27 +2,35 @@ import {registerModule} from "./../base/modules";
 import LikeAPI from "../utils/likecomm-api";
 import IAm from "../utils/i-am";
 import closestParent from "../utils/closest-parent";
+import forSelect from "../utils/for-select";
 import h from "../utils/html";
 import matches from "../utils/matches";
+import "../../styles/likecomm.less";
 
-const module = registerModule("likecomm");
+const module = registerModule("likecomm"),
+    authModule = registerModule("likecomm-auth", false);
 
 const likeAPI = new LikeAPI();
 
-likeAPI.onLike(({id, likes, withMy})=> {
-    const node = document.getElementById(`likecomm-${id}`);
-    if (node) {
-        node.querySelector(".bf2-likecomm-count").innerHTML = likes.toString(10);
-        node.classList.toggle("bf2-likecomm-liked", likes > 0);
-        node.classList.toggle("bf2-likecomm-with-my", withMy);
-    }
-});
+module.init(settings => {
+    likeAPI.anonymous = !settings.isModuleEnabled(authModule);
 
-module.init(() => {
-    likeAPI.watch();
+    {
+        let firstConnect = true;
+        likeAPI.onConnect(() => {
+            if (firstConnect) {
+                firstConnect = false;
+            } else {
+                updateLikesOnPage();
+            }
+        });
+        likeAPI.watch();
+    }
+
+    document.body.classList.toggle("bf2-likecomm-anon", likeAPI.anonymous);
 
     document.body.addEventListener("click", e => {
-        if (matches(e.target, ".bf2-likecomm-act")) {
+        if (!likeAPI.anonymous && matches(e.target, ".bf2-likecomm-act")) {
             const likeBlock = closestParent(e.target, ".bf2-likecomm-cont"),
                 commId = closestParent(likeBlock, ".comment").dataset.commId,
                 postId = closestParent(likeBlock, ".post").dataset.postId,
@@ -46,12 +54,16 @@ module.init(() => {
 
         if (matches(e.target, ".bf2-likecomm-count")) {
             const commId = closestParent(e.target, ".comment").dataset.commId;
-            const listEl = h("", "Loading\u2026");
+            const listEl = h("", h("em", "Loading\u2026"));
             showList(closestParent(e.target, ".bf2-likecomm-cont"), listEl);
             likeAPI.likes(commId).then(async(users) => {
+                if (users.length == 0) {
+                    listEl.innerHTML = "<em>Not available.</em>";
+                    return;
+                }
                 listEl.innerHTML = "";
                 const iAm = await IAm.ready;
-                const withMe = closestParent(e.target, ".bf2-likecomm-cont").classList.contains("bf2-likecomm-with-my");
+                const withMe = users.some(u => u === iAm.me);
                 users.sort();
                 users = users.filter(u => u !== iAm.me);
                 if (withMe) {
@@ -59,7 +71,7 @@ module.init(() => {
                 }
 
                 users.forEach(u => {
-                    listEl.appendChild(h("", h("a", {href: `/${u}`}, u)));
+                    listEl.appendChild(h("", h("a.bf2-user-link", {href: `/${u}`}, u)));
                 });
             });
         }
@@ -86,13 +98,28 @@ module.watch(".comments .comment .comment-icon", node => {
     requestLikesForId(id);
 
     commentNode.appendChild(h(".bf2-likecomm-shift",
-        h(".bf2-likecomm-cont", {id: `likecomm-${id}`},
-            h("span.bf2-likecomm-count", ""),
+        h(".bf2-likecomm-cont", {id: `likecomm-${id}`, "data-version": "0", "data-comm-id": id},
+            h("span.bf2-likecomm-count", "0"),
             h("i.fa.fa-heart.bf2-likecomm-act")
         )
     ));
 });
 
+likeAPI.onLike(({id, likes, updated, withMy})=> {
+    const node = document.getElementById(`likecomm-${id}`);
+    if (node) {
+        if (parseInt(node.dataset.version) < updated) {
+            node.dataset.version = updated.toString(10);
+            node.querySelector(".bf2-likecomm-count").innerHTML = likes.toString(10);
+            node.classList.toggle("bf2-likecomm-liked", likes > 0);
+            node.classList.toggle("bf2-likecomm-with-my", withMy);
+        }
+    }
+});
+
+function updateLikesOnPage() {
+    forSelect(document.body, ".bf2-likecomm-cont", node => requestLikesForId(node.dataset.commId));
+}
 
 const maxBatchSize = 50;
 let commentsToFetch = [];
