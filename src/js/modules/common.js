@@ -5,8 +5,8 @@ import forSelect from "../utils/for-select";
 
 const module = registerModule("common", true, true);
 
-// Homepage
 module.init(() => {
+    // Homepage
     onHistory(location => document.body.classList.toggle("bf2-homepage", location.pathname === "/"));
 
     document.addEventListener("click", e => {
