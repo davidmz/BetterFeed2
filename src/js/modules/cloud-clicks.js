@@ -1,7 +1,6 @@
 import {registerModule} from "./../base/modules";
 import closestParent from "../utils/closest-parent";
 import forSelect from "../utils/for-select";
-import matches from "../utils/matches";
 
 const module = registerModule("cloud-clicks");
 
@@ -28,7 +27,7 @@ module.init(() => {
             while (comm) {
                 const moreLink = comm.querySelector(".more-comments-link");
                 if (moreLink) {
-                    const m = parseInt(p.textContent);
+                    const m = parseInt(moreLink.textContent);
                     if (!isNaN(m)) {
                         n += m;
                     }
