@@ -10,7 +10,10 @@ let style = null;
 
 module.init(settings => {
     style = document.head.appendChild(h("style.bf2-hide-posts")).sheet;
-    settings.hidePostsFrom.forEach(userName => style.insertRule(`${selectorFor(userName)} { display: none; }`, 0));
+    settings.hidePostsFrom.forEach(userName => {
+        style.insertRule(`${selectorFor(userName)} { display: none; }`, 0);
+        style.insertRule(`${selectorTo(userName)} { display: none; }`, 0);
+    });
 });
 
 module.watch(".user-card-actions", (node, settings) => {
@@ -22,15 +25,15 @@ module.watch(".user-card-actions", (node, settings) => {
 
     link.addEventListener("click", () => {
         if (isHidden) {
-            const selector = selectorFor(userName);
             Array.prototype.slice.call(style.rules).forEach((rule, n) => {
-                if (rule.selectorText === selector) {
+                if (rule.selectorText === selectorFor(userName) || rule.selectorText === selectorTo(userName)) {
                     style.deleteRule(n);
                 }
             });
             settings.hidePostsFrom.delete(userName);
         } else {
             style.insertRule(`${selectorFor(userName)} { display: none; }`, 0);
+            style.insertRule(`${selectorTo(userName)} { display: none; }`, 0);
             settings.hidePostsFrom.add(userName);
         }
         isHidden = !isHidden;
@@ -44,6 +47,5 @@ function renderLink(link, isHidden) {
     link.innerHTML = escapeHTML(`${isHidden ? "Show" : "Hide"} posts`);
 }
 
-function selectorFor(name) {
-    return `.bf2-homepage .bf2-post-from-${name}`;
-}
+function selectorFor(name) { return `.bf2-homepage .bf2-post-from-${name}`;}
+function selectorTo(name) { return `.bf2-homepage .bf2-post-to-${name}`;}
