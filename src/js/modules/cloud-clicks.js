@@ -39,6 +39,7 @@ module.init(() => {
                 }
                 comm = comm.nextSibling;
             }
+            if (n < 2) n = 2;
             caps = new Array(n).join("^");
         }
 
@@ -46,19 +47,22 @@ module.init(() => {
         const commAuthor = usersInComment[usersInComment.length - 1].querySelector("a").getAttribute("href").substr(1);
 
         const postNode = closestParent(commNode, ".post");
-        let ta = postNode.querySelector(".comment-textarea");
-        if (!ta) {
-            forSelect(postNode, ".post-footer a").filter(a => a.textContent == "Comment").forEach(a => a.click());
-            ta = postNode.querySelector(".comment-textarea");
-        }
-        if (ta) {
-            if (caps !== "") {
-                ta.value += caps + " " + (e.shiftKey ? "this" : "");
-            } else if (commAuthor) {
-                ta.value += "@" + commAuthor + " ";
+        (async() => {
+            let ta = postNode.querySelector(".comment-textarea");
+            if (!ta) {
+                forSelect(postNode, ".post-footer a").filter(a => a.textContent == "Comment").forEach(a => a.click());
+                await new Promise(yes => setTimeout(yes, 100));
+                ta = postNode.querySelector(".comment-textarea");
             }
-            ta.focus();
-            ta.selectionStart = ta.selectionEnd = ta.value.length;
-        }
+            if (ta) {
+                if (caps !== "") {
+                    ta.value += caps + " " + (e.shiftKey ? "this" : "");
+                } else if (commAuthor) {
+                    ta.value += "@" + commAuthor + " ";
+                }
+                ta.focus();
+                ta.selectionStart = ta.selectionEnd = ta.value.length;
+            }
+        })();
     }, true);
 });
