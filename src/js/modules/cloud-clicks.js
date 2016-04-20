@@ -47,22 +47,26 @@ module.init(() => {
         const commAuthor = usersInComment[usersInComment.length - 1].querySelector("a").getAttribute("href").substr(1);
 
         const postNode = closestParent(commNode, ".post");
-        (async() => {
-            let ta = postNode.querySelector(".comment-textarea");
-            if (!ta) {
-                forSelect(postNode, ".post-footer a").filter(a => a.textContent == "Comment").forEach(a => a.click());
-                await new Promise(yes => setTimeout(yes, 100));
-                ta = postNode.querySelector(".comment-textarea");
+        let ta = postNode.querySelector(".comment-textarea");
+        const setEmpty = !ta;
+        if (!ta) {
+            forSelect(postNode, ".post-footer a").filter(a => a.textContent == "Comment").forEach(a => a.click());
+            ta = postNode.querySelector(".comment-textarea");
+        }
+        if (ta) {
+            if (setEmpty) {
+                ta.value = "";
             }
-            if (ta) {
-                if (caps !== "") {
-                    ta.value += caps + " " + (e.shiftKey ? "this" : "");
-                } else if (commAuthor) {
-                    ta.value += "@" + commAuthor + " ";
-                }
-                ta.focus();
-                ta.selectionStart = ta.selectionEnd = ta.value.length;
+            if (caps !== "") {
+                ta.value += caps + " " + (e.shiftKey ? "this" : "");
+            } else if (commAuthor) {
+                ta.value += "@" + commAuthor + " ";
             }
-        })();
+            ta.focus();
+            // чтобы react увидел изменение текста
+            ta.blur();
+            ta.focus();
+            ta.selectionStart = ta.selectionEnd = ta.value.length;
+        }
     }, true);
 });
