@@ -15,6 +15,7 @@ import "./modules/hide-aliens";
 import "./modules/ani-gifs";
 import "./modules/likecomm";
 import "./modules/cloud-clicks";
+import "./modules/moon";
 
 if (!/^\/(attachments|files)\//.test(location.pathname)) {
     if (!MutationObserver || !Promise) {
