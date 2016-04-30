@@ -1,28 +1,45 @@
-export var userId = null;
-export var authToken = null;
-export var siteDomain = 'freefeed.net';
-export var cookieName = 'freefeedBETA_authToken';
+export let userId = null;
+export let authToken = null;
 
-if (location.hostname === 'george.freefeed.net') {
-    cookieName = 'micropeppaBETA_authToken';
-    siteDomain = 'george.freefeed.net';
+const sitesProps = {
+    "freefeed.net": {
+        cookies: ["freefeedBETA_authToken", "freefeed_authToken"]
+    },
+    "gamma.freefeed.net": {
+        cookies: ["freefeed_authToken"]
+    }
+};
+
+export let siteDomain = location.hostname;
+export let cookieName = "freefeed_authToken";
+
+if (siteDomain in sitesProps) {
+    sitesProps[siteDomain].cookies.some(cName => {
+        [userId, authToken] = getUserIdToken(cName);
+        cookieName = cName;
+        return userId !== null;
+    });
 }
 
-
-let matches = document.cookie.match(new RegExp(`(?:^|;\\s*)${cookieName}=([^;]*)`));
-let cookieValue = matches ? matches[1] : null;
-
-if (cookieValue) {
-    let parts = cookieValue.split(".");
-    if (parts.length === 3) {
-        try {
-            let payload = JSON.parse(atob(parts[1]));
-            if ("userId" in payload) {
-                userId = payload["userId"];
-                authToken = cookieValue;
+/**
+ *
+ * @param {string} cookieName
+ * @return {Array.<string>} [userId, token]
+ */
+function getUserIdToken(cookieName) {
+    const matches = document.cookie.match(new RegExp(`(?:^|;\\s*)${cookieName}=([^;]*)`));
+    if (matches) {
+        const cookieValue = matches[1];
+        const parts = cookieValue.split(".");
+        if (parts.length === 3) {
+            try {
+                let payload = JSON.parse(atob(parts[1]));
+                if ("userId" in payload) {
+                    return [payload["userId"], cookieValue];
+                }
+            } catch (e) {
             }
-        } catch (e) {
         }
     }
+    return [null, null];
 }
-
