@@ -32,6 +32,12 @@ export default class {
         return null;
     }
 
+    async allPostsLikes(postIds) {
+        const likes = await this.req(`${apiRoot}/all-posts-likes`, {method: "POST", body: JSON.stringify(postIds)});
+        likes.forEach(l => this.listeners.forEach(c => c(l)));
+        return null;
+    }
+
     likes(commId) {
         return this.req(`${apiRoot}/likes?comm_id=${encodeURIComponent(commId)}`);
     }

@@ -1,3 +1,7 @@
+@hearth-color: #FFCE5B;
+@hearth-with-my-color: #e66;
+@text-with-my-color: #d00;
+
 .comment {
     position: relative;
 }
@@ -53,7 +57,7 @@
 .bf2-likecomm-act {
     position:   relative;
     cursor:     pointer;
-    color:      #FFCE5B;
+    color:      @hearth-color;
     transition: transform 0.25s;
 
     .bf2-likecomm-anon & {
@@ -104,11 +108,11 @@
     }
 }
 
-.bf2-likecomm-with-my {
-    color: #d00;
+.bf2-likecomm-cont.bf2-likecomm-with-my {
+    color: @text-with-my-color;
 
     .bf2-likecomm-act {
-        color: #e66;
+        color: @hearth-with-my-color;
     }
 }
 
@@ -125,4 +129,29 @@
     top:        20px;
     left:       -4px;
     z-index:    1;
+}
+
+.bf2-likecomm-dash {
+    position: absolute;
+    top:      -1px;
+    right:    -19px;
+    color:    #ddd;
+}
+
+.bf2-likecomm-folded {
+    display: none;
+
+    &.bf2-likecomm-liked {
+        display: inline;
+    }
+
+    .fa-heart {
+        font-size: 12px;
+        color:     @hearth-color;
+    }
+
+    &.bf2-likecomm-with-my {
+        .fa-heart { color: @hearth-with-my-color; }
+        .bf2-likecomm-count { color: @text-with-my-color; }
+    }
 }

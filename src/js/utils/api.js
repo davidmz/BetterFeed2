@@ -1,9 +1,11 @@
 import {authToken} from './current-user-id';
 
+const apiRoot = "https://freefeed.net";
+
 export function get(path) {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', path);
+        xhr.open('GET', apiRoot + path);
         xhr.responseType = 'json';
         xhr.setRequestHeader('X-Authentication-Token', authToken);
         xhr.onload = function () {
@@ -20,7 +22,7 @@ export function get(path) {
 export function put(path, body) {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
-        xhr.open('PUT', path);
+        xhr.open('PUT', apiRoot + path);
         xhr.responseType = 'json';
         xhr.setRequestHeader('X-Authentication-Token', authToken);
         xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
@@ -38,7 +40,7 @@ export function put(path, body) {
 export function del(path, body) {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
-        xhr.open('DELETE', path);
+        xhr.open('DELETE', apiRoot + path);
         xhr.responseType = 'json';
         xhr.setRequestHeader('X-Authentication-Token', authToken);
         xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
@@ -56,7 +58,7 @@ export function del(path, body) {
 export function post(path, body) {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', path);
+        xhr.open('POST', apiRoot + path);
         xhr.responseType = 'json';
         xhr.setRequestHeader('X-Authentication-Token', authToken);
         xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
