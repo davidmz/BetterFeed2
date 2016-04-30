@@ -9,8 +9,8 @@ const moonXML = `<svg class="bf2-moon" viewBox="-4 -4 108 108" xmlns="http://www
         <path class="bf2-moon-light" d="M 50 0 a 30 50 0 0 0 0 100 a 50 50 0 0 0 0 -100 Z"></path>
     </svg>`;
 
-module.watch("h1 a:first-child", node => {
-    node.parentNode.insertBefore(h("span"), node.nextSibling).innerHTML = moonXML;
+module.watch("h1", node => {
+    node.appendChild(h(".bf2-moon-cont")).innerHTML = moonXML;
     drawMoonPhase(currentMoonPhase());
     setInterval(() => drawMoonPhase(currentMoonPhase()), 1000 * 3600);
 });
