@@ -32,7 +32,7 @@
             localStorage.setItem(value.key, JSON.stringify(value.value));
 
         }
-        event.postMessage(
+        event.source.postMessage(
                 {
                     action: "@response",
                     requestId: event.data.requestId,
