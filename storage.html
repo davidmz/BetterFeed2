@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Storage</title>
+</head>
+<body>
+<script>
+    var validOrigins = ["https://freefeed.net", "https://gamma.freefeed.net"];
+
+    window.addEventListener('message', function (event) {
+        if (typeof event.data !== "object") {
+            return;
+        }
+
+        if (validOrigins.indexOf(event.origin) === -1) {
+            return;
+        }
+
+        var value = event.data.value,
+                respValue = null;
+
+        if (event.data.action === "get") {
+
+            try {
+                respValue = JSON.parse(localStorage.getItem(value));
+            } catch (e) {
+            }
+
+        } else if (event.data.action === "set") {
+
+            localStorage.setItem(value.key, JSON.stringify(value.value));
+
+        }
+        event.postMessage(
+                {
+                    action: "@response",
+                    requestId: event.data.requestId,
+                    value: respValue
+                },
+                event.origin
+        );
+    });
+
+</script>
+</body>
+</html>
