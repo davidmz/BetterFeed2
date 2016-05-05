@@ -16,6 +16,7 @@ import "./modules/ani-gifs";
 import "./modules/likecomm";
 import "./modules/cloud-clicks";
 import "./modules/moon";
+import "./modules/switch-accounts";
 
 if (!/^\/(attachments|files)\//.test(location.pathname)) {
     if (!MutationObserver || !Promise) {

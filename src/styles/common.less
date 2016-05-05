@@ -130,3 +130,82 @@ h1 {
     top:      0;
     right:    -20px;
 }
+
+.bf2-switch-acc {
+    color:      #ccc;
+    cursor:     pointer;
+    text-align: center;
+
+    &:hover {
+        background-color: #eee;
+        color:            #000;
+    }
+}
+
+.bf2-switch-account-box .bf2-lightbox-content {
+    width:            360px;
+    height:           auto;
+    cursor:           auto;
+    border:           1px solid #000;
+    box-shadow:       1px 1px 10px rgba(0, 0, 0, 0.5);
+    background-color: #ffffff;
+    padding:          1em;
+}
+
+.bf2-switch-dlg-header {
+    font-size: 120%;
+}
+
+.bf2-switch-dlg-accounts {
+    margin: 1em 0;
+}
+
+.bf2-switch-dlg-account {
+    cursor:      pointer;
+    font-weight: bold;
+    border:      1px solid #ddd;
+    margin:      0.5em 0;
+    position:    relative;
+
+    &:hover,
+    &.-current {
+        background-color: #eee;
+    }
+
+    &.-current {
+        cursor: not-allowed;
+        .bf2-switch-dlg-del {
+            display: none;
+        }
+    }
+}
+
+.bf2-switch-dlg-upic {
+    width:        50px;
+    height:       50px;
+    margin-right: 1em;
+    border-right: 1px solid #ddd;
+}
+
+.bf2-switch-dlg-new-form {
+    display: none;
+}
+
+.bf2-switch-dlg-del {
+    position:    absolute;
+    right:       0;
+    top:         50%;
+    width:       20px;
+    height:      20px;
+    line-height: 20px;
+    text-align:  center;
+    margin-top:  -10px;
+
+    &:hover {
+        color: #c00;
+    }
+}
+
+.box {
+    clear: both;
+}
