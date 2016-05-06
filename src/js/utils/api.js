@@ -72,3 +72,20 @@ export function post(path, body) {
         xhr.send(body);
     });
 }
+
+export function anonFormPost(path, body) {
+    return new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', apiRoot + path);
+        xhr.responseType = 'json';
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        xhr.onload = function () {
+            if (xhr.response && "err" in xhr.response) {
+                reject(xhr.response.err);
+            } else {
+                resolve(xhr.response);
+            }
+        };
+        xhr.send(body);
+    });
+}
