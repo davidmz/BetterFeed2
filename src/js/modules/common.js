@@ -11,6 +11,7 @@ module.init(() => {
 
     document.addEventListener("click", e => {
         if (e.button == 0 && e.target.classList.contains("bf2-user-link")) {
+            //noinspection JSUnresolvedVariable
             const reactLink = document.querySelector(`a:not(.bf2-user-link)[href="${CSS.escape(e.target.getAttribute("href"))}"]`);
             if (reactLink) {
                 e.preventDefault();

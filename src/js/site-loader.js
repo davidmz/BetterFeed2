@@ -1,6 +1,7 @@
 import docLoaded from "./utils/doc-loaded";
 import h from "./utils/html";
 import forSelect from "./utils/for-select";
+import * as inject from "./utils/inject";
 
 const lsKey = "bf2-enabled",
     actions = [];
@@ -22,11 +23,7 @@ if (MutationObserver && Promise) {
 
         if (localStorage[lsKey] === "1") {
             window.__BetterFeedOnSite = true;
-            const e = document.createElement("script");
-            e.src = 'https://cdn.rawgit.com/davidmz/BetterFeed2/v2.0.0/build/better-feed.user.js';
-            e.type = "text/javascript";
-            e.charset = "utf-8";
-            e.async = true;
+            inject.JavaScript("https://cdn.rawgit.com/davidmz/BetterFeed2/v2.0.0/build/better-feed.user.js");
             document.head.appendChild(e);
         }
     });

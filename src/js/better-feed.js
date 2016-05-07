@@ -17,6 +17,7 @@ import "./modules/likecomm";
 import "./modules/cloud-clicks";
 import "./modules/moon";
 import "./modules/switch-accounts";
+import "./modules/lightbox";
 
 if (!/^\/(attachments|files)\//.test(location.pathname)) {
     if (!MutationObserver || !Promise) {
