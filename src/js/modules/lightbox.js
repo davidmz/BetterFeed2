@@ -58,7 +58,6 @@ module.init(() => {
                 bgOpacity: 0.8,
                 history: false,
                 getThumbBoundsFn: thumbBoundsFn(items),
-                shareButtons: [{id: 'download', label: 'Download image', url: '{{raw_image_url}}', download: true}],
                 index
             }
         );
