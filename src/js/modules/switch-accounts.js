@@ -155,6 +155,7 @@ async function accountClicked(el) {
         var d = new Date();
         d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
         document.cookie = `${cookieName}=${encodeURIComponent(token)}; path=/; expires=${d.toUTCString()}`;
+        localStorage.removeItem("whoamiCache");
         location.reload();
     }
 }
