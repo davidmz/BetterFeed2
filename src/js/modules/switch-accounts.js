@@ -151,11 +151,12 @@ async function accountClicked(el) {
     });
 
     if (token) {
-        lb.hide();
+        lb.showContent("Please wait\u2026");
         var d = new Date();
         d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
         document.cookie = `${cookieName}=${encodeURIComponent(token)}; path=/; expires=${d.toUTCString()}`;
-        localStorage.removeItem("whoamiCache");
+        const newWho = await api.get('/v1/users/whoami', token);
+        localStorage.setItem("whoamiCache", JSON.stringify(newWho.users));
         location.reload();
     }
 }

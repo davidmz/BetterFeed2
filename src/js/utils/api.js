@@ -2,12 +2,12 @@ import {authToken} from './current-user-id';
 
 const apiRoot = "https://freefeed.net";
 
-export function get(path) {
+export function get(path, token = authToken) {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', apiRoot + path);
         xhr.responseType = 'json';
-        xhr.setRequestHeader('X-Authentication-Token', authToken);
+        xhr.setRequestHeader('X-Authentication-Token', token);
         xhr.onload = function () {
             if (xhr.response && "err" in xhr.response) {
                 reject(xhr.response.err);
