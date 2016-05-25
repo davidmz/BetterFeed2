@@ -12,7 +12,7 @@ const native = !!Element.prototype.closest;
 export default function closestParent(element, selector, withSelf = false) {
     if (element === null) return null;
     const p = withSelf ? element : element.parentNode;
-    if (native) return p.closest(selector);
+    if (native && p) return p.closest(selector);
 
     if (p && p.nodeType == Node.ELEMENT_NODE) {
         return matches(p, selector) ? p : closestParent(p, selector);
