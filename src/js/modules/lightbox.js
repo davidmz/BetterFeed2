@@ -27,7 +27,6 @@ module.init(() => {
         if (!imgAts) {
             return;
         }
-        e.preventDefault();
 
         const items = forSelect(imgAts, ".attachment > a").map(a => {
             const m = a.title.match(/(\d+)\D(\d+)px\)$/);
@@ -39,6 +38,13 @@ module.init(() => {
                 _att: a.parentNode
             };
         }).filter(it => it.w > 0);
+
+        if (items.length == 0) {
+            console.warn("Old post, images doesn't have size in html code. Sorry, can not show lightbox.");
+            return;
+        }
+
+        e.preventDefault();
 
         let index = 0;
         const clicked = closestParent(e.target, ".attachment");
