@@ -28,6 +28,12 @@ module.init(() => {
             return;
         }
 
+        const clickedAtt = closestParent(e.target, ".attachment");
+        if (!clickedAtt) {
+            return;
+        }
+
+
         const items = forSelect(imgAts, ".attachment > a").map(a => {
             const m = a.title.match(/(\d+)\D(\d+)px\)$/);
             return {
@@ -47,9 +53,8 @@ module.init(() => {
         e.preventDefault();
 
         let index = 0;
-        const clicked = closestParent(e.target, ".attachment");
         items.some(({_att}, i) => {
-            if (_att === clicked) {
+            if (_att === clickedAtt) {
                 index = i;
                 return true;
             }
