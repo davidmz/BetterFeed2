@@ -41,7 +41,7 @@ module.exports = [
     },
     {
         entry: {
-            "better-feed.user": srcJsDir + "/user-js-loader.js",
+            "better-feed.user": srcJsDir + "/user-js-loader.js"
         },
         output: {
             path: buildDir,

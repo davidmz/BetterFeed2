@@ -29,6 +29,7 @@ if (sPage) {
         checkUpdatesButton = document.getElementById("check-updates"),
         checkBoxes = forSelect(sPage, "input[type='checkbox']"),
         hidePostsFromTA = document.getElementById("hide-posts-from-users"),
+        ccModeInputs = forSelect(sPage, "input[name='comment-clouds-mode']"),
         msg = new Messenger(parentWindow, parentOrigin);
 
     /** @type {Settings|null} */
@@ -44,6 +45,7 @@ if (sPage) {
             settings.hidePostsFrom.clear();
             (hidePostsFromTA.value.toLowerCase().match(/\w+/g) || []).forEach(u => settings.hidePostsFrom.add(u));
         }
+        settings.commentCloudsMode = parseInt(getRadioValue(ccModeInputs));
         msg.send("saveSettings", settings.toJSON());
     });
 
@@ -58,8 +60,11 @@ if (sPage) {
     let currentState = () => {
         let state = new Map;
         forSelect(sPage, "input, textarea", input => {
-            state.set(input.id, (input.type === "checkbox") ? input.checked : input.value);
+            if (input.id) {
+                state.set(input.id, (input.type === "checkbox") ? input.checked : input.value);
+            }
         });
+        state.set("comment-clouds-mode", getRadioValue(ccModeInputs));
         return state;
     };
     let updateInputs = () => {
@@ -69,6 +74,7 @@ if (sPage) {
             settings.hidePostsFrom.forEach(u => s += `, ${u}`);
             hidePostsFromTA.value = s.substr(2);
         }
+        setRadioValue(ccModeInputs, settings.commentCloudsMode);
     };
 
     msg.send("getSettings").then(sData => {
@@ -110,4 +116,10 @@ if (sPage) {
     isChanged.distinct().onValue(s => saveButton.disabled = !s);
 }
 
+function getRadioValue(radioInputs) {
+    return radioInputs.reduce((prevValue, r) => r.checked ? r.value : prevValue, null);
+}
 
+function setRadioValue(radioInputs, value) {
+    radioInputs.forEach(r => r.checked = (r.value == value));
+}

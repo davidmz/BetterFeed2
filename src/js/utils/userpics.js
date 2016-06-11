@@ -1,6 +1,7 @@
 import userInfo from "../utils/user-info";
+import default50 from "file?name=[name].[ext]!../../styles/default-userpic-50.png";
 
-export const defaultPic = "https://freefeed.net/img/default-userpic-48.png";
+export const defaultPic = default50;
 const picRegistry = new Map;
 
 async function picLoad(username) {

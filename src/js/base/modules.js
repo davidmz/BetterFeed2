@@ -8,6 +8,12 @@ class Module {
         this.alwaysEnabled = alwaysEnabled;
         this.enabledByDefault = enabledByDefault;
         this.requiredModules = [];
+        /**
+         * Флаг, позволяющий отключить активность модуля, даже если он разрешён в настройках.
+         * Например, если фронтенд или браузер не поддерживает необходимые фичи.
+         * @type {boolean}
+         */
+        this.active = true;
         this._watchers = [];
         this._initiators = [];
     }
@@ -25,11 +31,17 @@ class Module {
     }
 
     _initiate(settings) {
+        if (!this.active) {
+            return;
+        }
         this._initiators.forEach(c => c(settings));
         this._watchers.forEach(({selector, callback}) => forSelect(document.body, selector, n => callback(n, settings)));
     }
 
     _trigger(node) {
+        if (!this.active) {
+            return;
+        }
         this._watchers.forEach(({selector, callback}) => forSelect(node, selector, n => callback(n, settings)));
     }
 }

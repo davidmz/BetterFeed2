@@ -2,6 +2,7 @@ import {registerModule} from "./../base/modules";
 import closestParent from "../utils/closest-parent";
 import onHistory from "../utils/on-history";
 import forSelect from "../utils/for-select";
+import IAm from "../utils/i-am";
 
 const module = registerModule("common", true, true);
 
@@ -45,4 +46,36 @@ module.watch(".timeline-post, .single-post", node => {
 // User cards
 module.watch(".user-card .display-name", node => {
     closestParent(node, ".user-card").dataset.userName = node.getAttribute("href").substr(1);
+});
+
+// Свойства комментариев
+module.watch(".comment", async(node) => {
+    const commentAuthor = node.dataset["author"];
+    if (!commentAuthor) {
+        // фолд или форма нового коммента
+        return;
+    }
+    const postAuthor = closestParent(node, ".post").dataset["author"];
+    if (!postAuthor) {
+        return;
+    }
+
+    const commProps = [];
+
+    commProps.push("from");
+
+    if (postAuthor === commentAuthor) {
+        commProps.push("from-post-author");
+    }
+
+    const type = (await IAm.ready).whoIs(commentAuthor);
+    if (type & IAm.ME) {
+        commProps.push("from-me");
+    } else if (type & IAm.FRIEND) {
+        commProps.push("from-friend");
+    } else if (type & IAm.READER) {
+        commProps.push("from-reader");
+    }
+
+    node.dataset.commProps = commProps.join(" ");
 });

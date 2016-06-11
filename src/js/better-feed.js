@@ -19,6 +19,7 @@ import "./modules/moon";
 import "./modules/switch-accounts";
 import "./modules/lightbox";
 import "./modules/no-read-more";
+import "./modules/comment-clouds";
 
 if (!/^\/(attachments|files)\//.test(location.pathname)) {
     if (!MutationObserver || !Promise) {
