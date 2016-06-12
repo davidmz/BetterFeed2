@@ -36,18 +36,11 @@
     pointer-events:   none;
 
     .comment.omit-bubble & { display: none; }
-    /*
-    &::after {
-        content:  "";
-        position: absolute;
-        width:    13px;
-        height:   3px;
-        bottom:   -5px;
-        left:     1px;
 
-        .comment[data-comm-props ~= "from-post-author"] & { background: #ffb914; }
+    .bf2-gamma-frontend .highlighted & {
+        top:  4px;
+        left: 3px;
     }
-    */
 }
 
 .bf2-comments-with-avatars {
@@ -83,4 +76,8 @@
             margin-right: 7px;
         }
     }
+}
+
+.bf2-gamma-frontend.bf2-comments-with-avatars .comment.highlighted {
+    margin-top: 6px;
 }

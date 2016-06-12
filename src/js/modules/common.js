@@ -3,6 +3,7 @@ import closestParent from "../utils/closest-parent";
 import onHistory from "../utils/on-history";
 import forSelect from "../utils/for-select";
 import IAm from "../utils/i-am";
+import {siteDomain} from "../utils/current-user-id";
 
 const module = registerModule("common", true, true);
 
@@ -21,6 +22,10 @@ module.init(() => {
             }
         }
     });
+
+    if (siteDomain === "gamma.freefeed.net") {
+        document.body.classList.add("bf2-gamma-frontend");
+    }
 });
 
 
@@ -50,12 +55,12 @@ module.watch(".user-card .display-name", node => {
 
 // Свойства комментариев
 module.watch(".comment", async(node) => {
-    const commentAuthor = node.dataset["author"];
+    const commentAuthor = getCommentAuthor(node);
     if (!commentAuthor) {
         // фолд или форма нового коммента
         return;
     }
-    const postAuthor = closestParent(node, ".post").dataset["author"];
+    const postAuthor = getPostAuthor(closestParent(node, ".post"));
     if (!postAuthor) {
         return;
     }
@@ -79,3 +84,28 @@ module.watch(".comment", async(node) => {
 
     node.dataset.commProps = commProps.join(" ");
 });
+
+function getCommentAuthor(commentNode) {
+    let author = commentNode.dataset["author"];
+    if (!author) {
+        const authorLink = commentNode.querySelector(".comment-body > .user-name-wrapper > a");
+        if (authorLink) {
+            author = authorLink.getAttribute("href").substr(1);
+            commentNode.dataset["author"] = author;
+        }
+    }
+    return author;
+}
+
+
+function getPostAuthor(postNode) {
+    let author = postNode.dataset["author"];
+    if (!author) {
+        const authorLink = postNode.querySelector(".post-header a.post-author");
+        if (authorLink) {
+            author = authorLink.getAttribute("href").substr(1);
+            postNode.dataset["author"] = author;
+        }
+    }
+    return author;
+}

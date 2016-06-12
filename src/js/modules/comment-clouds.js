@@ -2,11 +2,9 @@ import {registerModule} from "./../base/modules";
 import h from "../utils/html";
 import {getPic} from "../utils/userpics";
 import IAm from "../utils/i-am";
-import {siteDomain} from "../utils/current-user-id";
 import "../../styles/comment-clouds.less";
 
 const module = registerModule("comment-clouds");
-module.active = (siteDomain !== "gamma.freefeed.net");
 
 const usersWithAvatars = new Map();
 let withAvatars = false;
