@@ -34,16 +34,26 @@ module.init(() => {
         }
 
 
-        const items = forSelect(imgAts, ".attachment > a").map(a => {
-            const m = a.title.match(/(\d+)\D(\d+)px\)$/);
-            return {
-                w: m ? parseInt(m[1]) : 0,
-                h: m ? parseInt(m[2]) : 0,
-                src: a.href,
-                msrc: a.firstElementChild.src,
-                _att: a.parentNode
-            };
-        }).filter(it => it.w > 0);
+        const items = forSelect(imgAts, ".attachment > a")
+            .map(a => {
+                const m = a.title.match(/(\d+)\D(\d+)px\)$/);
+                return {
+                    w: m ? parseInt(m[1]) : 0,
+                    h: m ? parseInt(m[2]) : 0,
+                    src: a.href,
+                    msrc: a.firstElementChild.src,
+                    _img: a.firstElementChild,
+                    _att: a.parentNode
+                };
+            })
+            .filter(it => it.w > 0)
+            .map(it => {
+                // Если бэкенд определил координаты в неправильной ориентации
+                if (it._img.width > it._img.height && it.w < it.h || it._img.width < it._img.height && it.w > it.h) {
+                    [it.w, it.h] = [it.h, it.w];
+                }
+                return it;
+            });
 
         if (items.length == 0) {
             console.warn("Old post, images doesn't have size in html code. Sorry, can not show lightbox.");
