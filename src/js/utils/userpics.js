@@ -1,7 +1,8 @@
 import userInfo from "../utils/user-info";
-import default50 from "file?name=[name].[ext]!../../styles/default-userpic-50.png";
+import bfRoot from "../utils/bf-root";
+import "file?name=[name].[ext]!../../styles/default-userpic-50.png";
 
-export const defaultPic = default50;
+export const defaultPic = `${bfRoot}/build/default-userpic-50.png`;
 const picRegistry = new Map;
 
 async function picLoad(username) {
