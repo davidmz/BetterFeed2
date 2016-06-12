@@ -44,8 +44,8 @@ module.watch(".timeline-post:not(.bf2-post-via)", async(node) => {
         const {posts: {likes}, users} = await api.get(`/v1/posts/${postId}?maxLikes=all&maxComments=2`);
         likedUsers = likes
             .map(uid => {
-                const names = users.filter(u => u.id = uid).map(u => u.username);
-                return names.length > 0 ? names[1] : null;
+                const names = users.filter(u => u.id == uid).map(u => u.username);
+                return names.length > 0 ? names[0] : null;
             })
             .filter(u => u !== null && !!(iAm.whoIs(u) & (IAm.ME | IAm.FRIEND)))
             .filter((v, i, a) => a.indexOf(v) === i); // http://stackoverflow.com/questions/1960473/unique-values-in-an-array#answer-14438954
