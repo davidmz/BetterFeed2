@@ -6,7 +6,17 @@ import IAm from "../utils/i-am";
 
 const module = registerModule("posts-via");
 
+let nativeSupport = false;
+
+module.watch(".post-via-sources", () => {
+    if (!nativeSupport) {
+        nativeSupport = true;
+    }
+});
+
 module.watch(".timeline-post:not(.bf2-post-via)", async(node) => {
+    // если фронтенд уже умеет via
+    if (nativeSupport) return;
     // включаемся только на френдленте
     if (location.pathname !== "/") return;
     node.classList.add("bf2-post-via");
