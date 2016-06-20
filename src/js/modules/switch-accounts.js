@@ -38,7 +38,7 @@ module.init(() => {
     });
 });
 
-module.watch(".logged-in .avatar, .logged-in .userpic", node => {
+module.watch(".logged-in > .avatar, .logged-in > .userpic", node => {
     node.appendChild(
         h(".bf2-switch-acc", {title: "Switch account"}, h("span.fa.fa-exchange"))
     ).addEventListener("click", showSwitchDialog);
