@@ -21,7 +21,7 @@ import "./modules/lightbox";
 import "./modules/no-read-more";
 import "./modules/comment-clouds";
 
-if (!/^\/(attachments|files)\//.test(location.pathname)) {
+if (!/^\/(attachments|files|bookmarklet)\//.test(location.pathname)) {
     if (!MutationObserver || !Promise) {
         console.error("Can not start BetterFeed: MutationObserver & Promise not supported");
     } else if (userId === null) {
