@@ -20,6 +20,7 @@ import "./modules/switch-accounts";
 import "./modules/lightbox";
 import "./modules/no-read-more";
 import "./modules/comment-clouds";
+import "./modules/hide-arabic";
 
 if (!/^\/(attachments\/|files\/|bookmarklet)/.test(location.pathname)) {
     if (!MutationObserver || !Promise) {

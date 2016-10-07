@@ -8,8 +8,13 @@ import {siteDomain} from "../utils/current-user-id";
 const module = registerModule("common", true, true);
 
 module.init(() => {
-    // Homepage
-    onHistory(location => document.body.classList.toggle("bf2-homepage", location.pathname === "/"));
+    onHistory(location => {
+        const isHomePage = (location.pathname === "/");
+        const isBestOf = (location.pathname === "/filter/best_of");
+        document.body.classList.toggle("bf2-homepage", isHomePage);
+        document.body.classList.toggle("bf2-best-of", isBestOf);
+        document.body.classList.toggle("bf2-aggregate-page", isHomePage || isBestOf);
+    });
 
     document.addEventListener("click", e => {
         if (e.button == 0 && e.target.classList.contains("bf2-user-link")) {
@@ -46,6 +51,13 @@ module.watch(".timeline-post, .single-post", node => {
         .map(a => a.getAttribute("href").substr(1))
         .filter(u => u !== postAuthor)
         .forEach(u => node.classList.add(`bf2-post-to-${u}`));
+
+    // Язык поста
+    const postBody = node.querySelector(".post-text");
+    const firstComment = node.querySelector(".comment-body");
+    if (isArabic(postBody.textContent) || firstComment && isArabic(firstComment.textContent)) {
+        node.classList.add("bf2-lang-arabic");
+    }
 });
 
 // User cards
@@ -108,4 +120,13 @@ function getPostAuthor(postNode) {
         }
     }
     return author;
+}
+
+/**
+ *
+ * @param {string} text
+ * @return {boolean}
+ */
+function isArabic(text) {
+    return /[\u0600-\u06ff\u0700-\u077f\u08A0-\u08ff]/.test(text);
 }

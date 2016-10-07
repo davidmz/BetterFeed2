@@ -47,5 +47,5 @@ function renderLink(link, isHidden) {
     link.innerHTML = escapeHTML(`${isHidden ? "Show" : "Hide"} posts`);
 }
 
-function selectorFor(name) { return `.bf2-homepage .bf2-post-from-${name}`;}
-function selectorTo(name) { return `.bf2-homepage .bf2-post-to-${name}`;}
+function selectorFor(name) { return `.bf2-aggregate-page .bf2-post-from-${name}`;}
+function selectorTo(name) { return `.bf2-aggregate-page .bf2-post-to-${name}`;}
