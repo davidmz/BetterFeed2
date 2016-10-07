@@ -1,5 +1,6 @@
 var fs = require('fs');
 var webpack = require("webpack");
+var packInfo = require("./package.json");
 
 var srcJsDir = __dirname + "/src/js",
     buildDir = __dirname + "/build",
@@ -36,7 +37,12 @@ module.exports = [
         },
         plugins: [
             new webpack.optimize.UglifyJsPlugin({}),
-            new webpack.ProvidePlugin({'window.fetch': 'exports?self.fetch!whatwg-fetch'})
+            new webpack.ProvidePlugin({'window.fetch': 'exports?self.fetch!whatwg-fetch'}),
+            new webpack.DefinePlugin({
+                'process.env': {
+                    'BF2_VERSION': JSON.stringify("v" + packInfo.version)
+                }
+            })
         ]
     },
     {

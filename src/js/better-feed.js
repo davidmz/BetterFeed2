@@ -57,7 +57,7 @@ function start(settings) {
 
 function checkUpdates() {
     const now = Date.now();
-    const oldVersion = localStorage["bf2-version"];
+    const oldVersion = process.env.BF2_VERSION;
     localStorage["bf2-next-update"] = now + 3600 * 1000;
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://api.github.com/repos/davidmz/BetterFeed2/tags?page=1&per_page=1');

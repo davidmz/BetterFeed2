@@ -5,7 +5,7 @@ import Lightbox from "../utils/lightbox";
 import {authToken} from '../utils/current-user-id.js';
 import escapeHTML from "../utils/escape-html";
 
-const version = localStorage["bf2-version"] || "v0.0.0";
+const version = process.env.BF2_VERSION;
 
 const module = registerModule("settings-link", true, true);
 
