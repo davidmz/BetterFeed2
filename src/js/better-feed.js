@@ -22,7 +22,7 @@ import "./modules/no-read-more";
 import "./modules/comment-clouds";
 import "./modules/hide-arabic";
 
-if (!/^\/(attachments\/|files\/|bookmarklet)/.test(location.pathname)) {
+if (!/^\/(attachments\/|files\/|bookmarklet|v\d\/)/.test(location.pathname)) {
     if (!MutationObserver || !Promise) {
         console.error("Can not start BetterFeed: MutationObserver & Promise not supported");
     } else if (userId === null) {
