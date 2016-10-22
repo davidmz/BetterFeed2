@@ -21,6 +21,7 @@ import "./modules/lightbox";
 import "./modules/no-read-more";
 import "./modules/comment-clouds";
 import "./modules/hide-arabic";
+import "./modules/search-highlight";
 
 if (!/^\/(attachments\/|files\/|bookmarklet)/.test(location.pathname)) {
     if (!MutationObserver || !Promise) {

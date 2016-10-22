@@ -29,6 +29,8 @@
     "babel-runtime": "^6.6.1",
     "localforage": "^1.4.0",
     "photoswipe": "^4.1.1",
-    "whatwg-fetch": "^0.11.0"
+    "porter-stemmer": "^0.9.1",
+    "whatwg-fetch": "^0.11.0",
+    "escape-string-regexp": "latest"
   }
 }
