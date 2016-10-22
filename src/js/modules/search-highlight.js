@@ -57,8 +57,7 @@ module.watch(".post-text, .comment-body", node => {
             return;
         }
         let text = node.nodeValue;
-        let start = 0;
-        const fr = document.createDocumentFragment();
+        let fr = null;
 
         while (text !== "") {
             let match = "", minPos = 0;
@@ -71,18 +70,25 @@ module.watch(".post-text, .comment-body", node => {
             });
 
             if (match !== "") {
-                fr.appendChild(document.createTextNode(text.substring(start, minPos)));
+                if (!fr) {
+                    fr = document.createDocumentFragment();
+                }
+                fr.appendChild(document.createTextNode(text.substring(0, minPos)));
                 const span = fr.appendChild(document.createElement("span"));
                 span.className = hlClass;
                 span.appendChild(document.createTextNode(match));
                 text = text.substring(minPos + match.length);
             } else {
-                fr.appendChild(document.createTextNode(text));
+                if (fr) {
+                    fr.appendChild(document.createTextNode(text));
+                }
                 break;
             }
         }
-        node.parentNode.insertBefore(fr, node);
-        node.parentNode.removeChild(node);
+        if (fr) {
+            node.parentNode.insertBefore(fr, node);
+            node.parentNode.removeChild(node);
+        }
     });
 
 });
