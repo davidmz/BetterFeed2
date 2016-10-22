@@ -4,6 +4,7 @@ import stemmerRu from "../utils/stemmer-ru";
 import onHistory from "../utils/on-history";
 import textWalk from "../utils/text-walk";
 import escapeRe from "escape-string-regexp";
+import closestParent from "../utils/closest-parent";
 
 const module = registerModule("search-highlight");
 
@@ -43,7 +44,6 @@ module.init(() => {
                 terms.push(new RegExp(`(^|[^${enLetters}${ruLetters}])(${escapeRe(m[2])})(?:$|[^${enLetters}${ruLetters}])`));
             }
         }
-        console.log(terms);
     });
 });
 
@@ -53,6 +53,9 @@ module.watch(".post-text, .comment-body", node => {
     }
 
     textWalk(node, node => {
+        if (closestParent(node, ".user-name-wrapper")) {
+            return;
+        }
         let text = node.nodeValue;
         let start = 0;
         const fr = document.createDocumentFragment();
