@@ -10,7 +10,7 @@ const module = registerModule("search-highlight");
 const enLetters = "a-z";
 const ruLetters = "\u0400-\u04ff";
 
-const partRE = /"(.+?)"|([^\s:]+)/g;
+const partRE = /"(.+?)"|(\S+)/g;
 const enWordRE = new RegExp(`^[${enLetters}]+$`, "i");
 const ruWordRE = new RegExp(`^[${ruLetters}]+$`, "i");
 const hlClass = "bf2-search-highlight";
@@ -30,6 +30,9 @@ module.init(() => {
         const q = decodeURIComponent(m[1]);
 
         while ((m = partRE.exec(q)) !== null) {
+            if (m[2] && m[2].indexOf(":") !== -1) {
+                continue;
+            }
             if (m[1] !== undefined) {
                 terms.push(new RegExp(`(^|[^${enLetters}${ruLetters}])(${escapeRe(m[1])})(?:$|[^${enLetters}${ruLetters}])`));
             } else if (enWordRE.test(m[2])) {
@@ -40,6 +43,7 @@ module.init(() => {
                 terms.push(new RegExp(`(^|[^${enLetters}${ruLetters}])(${escapeRe(m[2])})(?:$|[^${enLetters}${ruLetters}])`));
             }
         }
+        console.log(terms);
     });
 });
 
