@@ -22,6 +22,7 @@ import "./modules/no-read-more";
 import "./modules/comment-clouds";
 import "./modules/hide-arabic";
 import "./modules/search-highlight";
+import "./modules/hanging-punct";
 
 if (!/^\/(attachments\/|files\/|bookmarklet|v\d\/)/.test(location.pathname)) {
     if (!MutationObserver || !Promise) {
