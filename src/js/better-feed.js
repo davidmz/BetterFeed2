@@ -19,7 +19,7 @@ import "./modules/moon";
 import "./modules/switch-accounts";
 import "./modules/lightbox";
 import "./modules/no-read-more";
-import "./modules/comment-clouds";
+// import "./modules/comment-clouds";
 import "./modules/hide-arabic";
 import "./modules/search-highlight";
 import "./modules/hanging-punct";

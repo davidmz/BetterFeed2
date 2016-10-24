@@ -5,7 +5,7 @@ const apiRoot = "https://freefeed.net";
 export function get(path, token = authToken) {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', apiRoot + path);
+        xhr.open('GET', apiURL(path));
         xhr.responseType = 'json';
         xhr.setRequestHeader('X-Authentication-Token', token);
         xhr.onload = function () {
@@ -22,7 +22,7 @@ export function get(path, token = authToken) {
 export function put(path, body) {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
-        xhr.open('PUT', apiRoot + path);
+        xhr.open('PUT', apiURL(path));
         xhr.responseType = 'json';
         xhr.setRequestHeader('X-Authentication-Token', authToken);
         xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
@@ -40,7 +40,7 @@ export function put(path, body) {
 export function del(path, body) {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
-        xhr.open('DELETE', apiRoot + path);
+        xhr.open('DELETE', apiURL(path));
         xhr.responseType = 'json';
         xhr.setRequestHeader('X-Authentication-Token', authToken);
         xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
@@ -58,7 +58,7 @@ export function del(path, body) {
 export function post(path, body) {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', apiRoot + path);
+        xhr.open('POST', apiURL(path));
         xhr.responseType = 'json';
         xhr.setRequestHeader('X-Authentication-Token', authToken);
         xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
@@ -76,7 +76,7 @@ export function post(path, body) {
 export function anonFormPost(path, body) {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', apiRoot + path);
+        xhr.open('POST', apiURL(path));
         xhr.responseType = 'json';
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         xhr.onload = function () {
@@ -88,4 +88,8 @@ export function anonFormPost(path, body) {
         };
         xhr.send(body);
     });
+}
+
+function apiURL(path) {
+    return apiRoot + path + ((path.indexOf("?") !== -1) ? "&" : "?") + "_initiator=betterfeed2";
 }
