@@ -44,7 +44,8 @@ export default class Settings {
      */
     isModuleEnabled(m) {
         return (
-            (m.alwaysEnabled || !this.modules.has(m.name) && m.enabledByDefault || this.modules.get(m.name))
+            m
+            && (m.alwaysEnabled || !this.modules.has(m.name) && m.enabledByDefault || this.modules.get(m.name))
             && !m.requiredModules.map(name => registeredModules.get(name)).some(m => !this.isModuleEnabled(m))
         );
     }
