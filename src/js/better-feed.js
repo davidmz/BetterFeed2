@@ -10,11 +10,9 @@ import "./modules/common";
 import "./modules/settings-link";
 
 import "./modules/hide-posts";
-import "./modules/posts-via";
 import "./modules/hide-aliens";
 import "./modules/ani-gifs";
 import "./modules/likecomm";
-import "./modules/cloud-clicks";
 import "./modules/moon";
 import "./modules/switch-accounts";
 import "./modules/lightbox";
