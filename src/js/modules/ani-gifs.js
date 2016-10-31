@@ -5,7 +5,7 @@ const module = registerModule("ani-gifs");
 
 const db = localforage.createInstance({name: "BF2_aniGifs"});
 
-module.watch(".image-attachments img[src$='.gif'][src*='/attachments/']:not(.bf2-gif)", async(img)=> {
+module.watch(".image-attachments .attachment img[src$='.gif'][src*='/attachments/']:not(.bf2-gif)", async(img)=> {
     img.classList.add("bf2-gif");
     if (await isAnimated(img.src)) {
         img.parentNode.classList.add("bf2-animated-gif");
