@@ -28,7 +28,6 @@ if (sPage) {
         saveButton = document.getElementById("save-settings"),
         checkUpdatesButton = document.getElementById("check-updates"),
         checkBoxes = forSelect(sPage, "input[type='checkbox']"),
-        hidePostsFromTA = document.getElementById("hide-posts-from-users"),
         ccModeInputs = forSelect(sPage, "input[name='comment-clouds-mode']"),
         msg = new Messenger(parentWindow, parentOrigin);
 
@@ -41,10 +40,6 @@ if (sPage) {
         saveButton.innerHTML = escapeHTML("Сохраняем\u2026");
 
         checkBoxes.forEach(box => settings.modules.set(box.id, box.checked));
-        {
-            settings.hidePostsFrom.clear();
-            (hidePostsFromTA.value.toLowerCase().match(/\w+/g) || []).forEach(u => settings.hidePostsFrom.add(u));
-        }
         settings.commentCloudsMode = parseInt(getRadioValue(ccModeInputs));
         msg.send("saveSettings", settings.toJSON());
     });
@@ -69,11 +64,6 @@ if (sPage) {
     };
     let updateInputs = () => {
         checkBoxes.forEach(box => box.checked = settings.modules.get(box.id));
-        {
-            let s = "";
-            settings.hidePostsFrom.forEach(u => s += `, ${u}`);
-            hidePostsFromTA.value = s.substr(2);
-        }
         setRadioValue(ccModeInputs, settings.commentCloudsMode);
     };
 

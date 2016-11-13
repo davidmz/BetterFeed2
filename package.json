@@ -1,6 +1,6 @@
 {
   "name": "BetterFeed",
-  "version": "2.15.1",
+  "version": "2.16.0",
   "description": "FreeFeed new functions",
   "author": "David Mzareulyan",
   "license": "MIT",
@@ -28,8 +28,6 @@
     "babel-polyfill": "^6.7.4",
     "babel-runtime": "^6.6.1",
     "localforage": "^1.4.0",
-    "photoswipe": "^4.1.1",
-    "porter-stemmer": "^0.9.1",
     "whatwg-fetch": "^0.11.0",
     "escape-string-regexp": "latest"
   }

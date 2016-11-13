@@ -10,7 +10,6 @@ export default class Settings {
             }
         });
 
-        this.hidePostsFrom = new Set;
         this.hideAliens = false;
         this.commentCloudsMode = 2;
 
@@ -21,7 +20,6 @@ export default class Settings {
                     this.modules.set(k, !!v);
                 }
             });
-            (o.hidePostsFrom || []).forEach(u => this.hidePostsFrom.add(u));
             this.hideAliens = !!o.hideAliens;
             if (o.commentCloudsMode === 1 || o.commentCloudsMode === 2) {
                 this.commentCloudsMode = o.commentCloudsMode;
@@ -30,9 +28,8 @@ export default class Settings {
     }
 
     toJSON() {
-        const o = {modules: [], hidePostsFrom: []};
+        const o = {modules: []};
         this.modules.forEach((v, k) => o.modules.push([k, v]));
-        this.hidePostsFrom.forEach(u => o.hidePostsFrom.push(u));
         o.hideAliens = this.hideAliens;
         o.commentCloudsMode = this.commentCloudsMode;
         return o;

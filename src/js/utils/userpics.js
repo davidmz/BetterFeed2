@@ -1,4 +1,3 @@
-import userInfo from "../utils/user-info";
 import bfRoot from "../utils/bf-root";
 import "file?name=[name].[ext]!../../styles/default-userpic-50.png";
 
@@ -6,9 +5,8 @@ export const defaultPic = `${bfRoot}/build/default-userpic-50.png`;
 const picRegistry = new Map;
 
 async function picLoad(username) {
-    let inf = await userInfo(username);
-    let p = inf.users.profilePictureMediumUrl;
-    return (p && p !== "") ? p : defaultPic;
+    const resp = await (await fetch(`https://davidmz.me/frfrfr/uinfo/upic?username=${username}`)).json();
+    return (resp.status === "ok" && resp.data !== "") ? resp.data : defaultPic;
 }
 
 export function getPic(username) {
