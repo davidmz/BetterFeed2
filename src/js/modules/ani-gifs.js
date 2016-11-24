@@ -9,6 +9,7 @@ module.watch(".image-attachments .attachment img[src$='.gif'][src*='/attachments
     img.classList.add("bf2-gif");
     if (await isAnimated(img.src)) {
         img.parentNode.classList.add("bf2-animated-gif");
+        img.removeAttribute("srcSet");
         drawImage(img);
     }
 });
