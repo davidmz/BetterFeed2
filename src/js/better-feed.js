@@ -9,7 +9,6 @@ import Messenger from "./utils/message-rpc";
 import "./modules/common";
 import "./modules/settings-link";
 
-import "./modules/hide-aliens";
 import "./modules/ani-gifs";
 import "./modules/likecomm";
 import "./modules/moon";
