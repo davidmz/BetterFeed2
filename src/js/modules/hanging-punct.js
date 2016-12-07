@@ -27,11 +27,14 @@ module.watch(".post-text, .comment-body", node => {
         }
     }
     textWalk(node, node => {
+        if (node.parentNode.classList.contains("bf2-hp")) {
+            return;
+        }
         let html = escapeHTML(node.nodeValue);
         if (!re.test(html)) {
             return;
         }
-        html = html.replace(re, '<span class="bf2-hp-pre bf2-hp-pre-$2">$1</span><span class="bf2-hp-$2">$2</span>');
+        html = html.replace(re, '<span class="bf2-hp bf2-hp-pre bf2-hp-pre-$2">$1</span><span class="bf2-hp bf2-hp-$2">$2</span>');
         helper.innerHTML = html;
         while (helper.firstChild) {
             node.parentNode.insertBefore(helper.firstChild, node);
