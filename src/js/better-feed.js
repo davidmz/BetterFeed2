@@ -10,7 +10,6 @@ import "./modules/common";
 import "./modules/settings-link";
 
 import "./modules/ani-gifs";
-import "./modules/likecomm";
 import "./modules/moon";
 import "./modules/switch-accounts";
 import "./modules/no-read-more";
