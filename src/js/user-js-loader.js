@@ -20,7 +20,7 @@ if (now > nextUpdate) {
     xhr.responseType = "json";
     xhr.onload = function () {
         var tags = xhr.response;
-        if (tags.length == 1 && "name" in tags[0]) {
+        if (tags.length === 1 && "name" in tags[0]) {
             localStorage[verName] = tags[0]["name"];
             localStorage[updName] = now + 24 * 3600 * 1000;
             // первый запуск
@@ -35,7 +35,7 @@ if (version !== null) inject(version);
 
 function inject(version) {
     var e = document.createElement("script");
-    e.src = 'https://cdn.rawgit.com/davidmz/BetterFeed2/' + version + '/build/better-feed.min.js';
+    e.src = 'https://cdn.jsdelivr.net/gh/davidmz/BetterFeed2@' + version + '/build/better-feed.min.js';
     e.type = "text/javascript";
     e.charset = "utf-8";
     e.async = true;

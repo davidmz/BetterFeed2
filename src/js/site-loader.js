@@ -12,7 +12,7 @@ if (MutationObserver && Promise) {
             mutations.forEach(mutation => {
                 for (let i = 0, l = mutation.addedNodes.length; i < l; i++) {
                     let node = mutation.addedNodes[i];
-                    if (node.nodeType == Node.ELEMENT_NODE) {
+                    if (node.nodeType === Node.ELEMENT_NODE) {
                         actions.forEach(act => act(node));
                     }
                 }
@@ -23,8 +23,7 @@ if (MutationObserver && Promise) {
 
         if (localStorage[lsKey] === "1") {
             window.__BetterFeedOnSite = true;
-            inject.JavaScript("https://cdn.rawgit.com/davidmz/BetterFeed2/v2.0.0/build/better-feed.user.js");
-            document.head.appendChild(e);
+            inject.JavaScript("https://cdn.jsdelivr.net/gh/davidmz/BetterFeed2@v2.0.0/build/better-feed.user.js");
         }
     });
 }
