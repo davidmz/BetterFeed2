@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name BetterFeed
 // @namespace https://github.com/davidmz/BetterFeed2
-// @version 2.1.3
+// @version 2.1.4
 // @description Some cool features for FreeFeed
 // @include https://freefeed.net/*
 // @exclude https://freefeed.net/v1/*
