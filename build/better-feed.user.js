@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name BetterFeed
 // @namespace https://github.com/davidmz/BetterFeed2
-// @version 2.1.4
+// @version 2.1.5
 // @description Some cool features for FreeFeed
 // @include https://freefeed.net/*
 // @exclude https://freefeed.net/v1/*
 // ==/UserScript==
 
-!function(e){function t(n){if(a[n])return a[n].exports;var r=a[n]={exports:{},id:n,loaded:!1};return e[n].call(r.exports,r,r.exports,t),r.loaded=!0,r.exports}var a={};return t.m=e,t.c=a,t.p="",t(0)}([function(e,t){"use strict";function a(e){var t=document.createElement("script");t.src="https://cdn.jsdelivr.net/gh/davidmz/BetterFeed2@"+e+"/build/better-feed.min.js",t.type="text/javascript",t.charset="utf-8",t.async=!0,document.head.appendChild(t)}var n="bf2-version",r="bf2-next-update",o=Date.now(),l=null,s=0;if(n in localStorage&&(l=localStorage[n],s=parseInt(localStorage[r]),isNaN(s)&&(s=0)),o>s){localStorage[r]=o+36e5;var p=new XMLHttpRequest;p.open("GET","https://api.github.com/repos/davidmz/BetterFeed2/tags?page=1&per_page=1"),p.responseType="json",p.onload=function(){var e=p.response;1===e.length&&"name"in e[0]&&(localStorage[n]=e[0].name,localStorage[r]=o+864e5,null===l&&a(e[0].name))},p.send()}null!==l&&a(l)}]);
+!function(e){function t(n){if(a[n])return a[n].exports;var r=a[n]={exports:{},id:n,loaded:!1};return e[n].call(r.exports,r,r.exports,t),r.loaded=!0,r.exports}var a={};return t.m=e,t.c=a,t.p="",t(0)}([function(e,t){"use strict";function a(e){var t=document.createElement("script");t.src="https://davidmz.me/betterfeed-cdn/"+e+"/build/better-feed.min.js",t.type="text/javascript",t.charset="utf-8",t.async=!0,document.head.appendChild(t)}var n="bf2-version",r="bf2-next-update",o=Date.now(),l=null,s=0;if(n in localStorage&&(l=localStorage[n],s=parseInt(localStorage[r]),isNaN(s)&&(s=0)),o>s){localStorage[r]=o+36e5;var p=new XMLHttpRequest;p.open("GET","https://api.github.com/repos/davidmz/BetterFeed2/tags?page=1&per_page=1"),p.responseType="json",p.onload=function(){var e=p.response;1===e.length&&"name"in e[0]&&(localStorage[n]=e[0].name,localStorage[r]=o+864e5,null===l&&a(e[0].name))},p.send()}null!==l&&a(l)}]);
