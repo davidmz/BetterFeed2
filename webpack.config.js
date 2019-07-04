@@ -32,6 +32,10 @@ module.exports = [
                 {
                     test: /\.less$/,
                     loader: "style!css!less"
+                },
+                {
+                    test: /\.svg$/,
+                    loader: "svg-url-loader?encoding=base64"
                 }
             ]
         },

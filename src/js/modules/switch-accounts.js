@@ -40,7 +40,7 @@ module.init(() => {
 
 module.watch(".logged-in > .avatar, .logged-in > .userpic", node => {
     node.appendChild(
-        h(".bf2-switch-acc", {title: "Switch account"}, h("span.fa.fa-exchange"))
+        h(".bf2-switch-acc", {title: "Switch account"}, h("span.bf2-switch-acc__icon"))
     ).addEventListener("click", showSwitchDialog);
 
 });
@@ -68,14 +68,14 @@ async function genHtml() {
         e.preventDefault();
         let username = form.elements['username'].value;
         let password = form.elements['password'].value;
-        (async() => {
+        (async () => {
             let d = await api.anonFormPost("/v1/session", `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
             if (d.err) {
                 alert(d.err);
                 return;
             }
             //noinspection UnnecessaryLocalVariableJS
-            let {users:{username: u}, authToken} = d;
+            let {users: {username: u}, authToken} = d;
             await addAccount(u, authToken);
             lb.showContent(await genHtml());
         })();
@@ -90,7 +90,7 @@ async function genHtml() {
                     let userPic = h(`img.${CSS_PREFIX}upic`, {src: defaultPic});
                     getPic(username).then(pic => userPic.src = pic);
                     let deleter = h(`.${CSS_PREFIX}del`, {title: "Remove from list"}, h("i.fa.fa-times-circle"));
-                    return h(`.${CSS_PREFIX}account${(username == me) ? ".-current" : ""}`, {"data-username": username}, userPic, username, deleter);
+                    return h(`.${CSS_PREFIX}account${(username === me) ? ".-current" : ""}`, {"data-username": username}, userPic, username, deleter);
                 }
             )
         ),
@@ -123,13 +123,13 @@ async function addAccount(username, token) {
 
 function removeAccount(el) {
     if (!confirm("Are you sure?")) return Promise.resolve();
-    return (async() => {
+    return (async () => {
         let {me} = await IAm.ready;
         let username = closestParent(el, `.${CSS_PREFIX}account`).dataset['username'];
         if (username === me) return;
 
         let list = (await readAccList()).filter(a => a.username !== username);
-        if (list.length == 1 && list[0].username === me) {
+        if (list.length === 1 && list[0].username === me) {
             await ls.set(ACC_LIST_KEY, null);
         } else {
             await ls.set(ACC_LIST_KEY, list);
@@ -143,7 +143,7 @@ async function accountClicked(el) {
     if (username === (await IAm.ready).me) return;
     let token = null;
     (await readAccList()).some(a => {
-        if (a.username == username) {
+        if (a.username === username) {
             token = a.token;
             return true;
         }

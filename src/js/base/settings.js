@@ -27,7 +27,7 @@ export default class Settings {
         }
     }
 
-    toJSON() {
+     toJSON() {
         const o = {modules: []};
         this.modules.forEach((v, k) => o.modules.push([k, v]));
         o.hideAliens = this.hideAliens;
