@@ -9,7 +9,7 @@ import Messenger from "./utils/message-rpc";
 import "./modules/common";
 import "./modules/settings-link";
 
-import "./modules/ani-gifs";
+// import "./modules/ani-gifs";
 import "./modules/moon";
 import "./modules/switch-accounts";
 import "./modules/no-read-more";
@@ -61,11 +61,11 @@ function checkUpdates() {
     xhr.onload = () => {
         try {
             const tags = xhr.response;
-            if (tags.length == 1 && "name" in tags[0]) {
+            if (tags.length === 1 && "name" in tags[0]) {
                 const newVersion = tags[0]["name"];
                 localStorage["bf2-version"] = newVersion;
                 localStorage["bf2-next-update"] = now + 24 * 3600 * 1000;
-                if (newVersion != oldVersion) {
+                if (newVersion !== oldVersion) {
                     if (confirm(`Доступна новая версия: ${newVersion}. Она будет установлена после перезагрузки страницы.\n\nПерезагрузить страницу сейчас?`)) {
                         location.reload(true);
                     }
