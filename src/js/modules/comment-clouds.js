@@ -19,7 +19,7 @@ module.init(settings => {
 });
 
 module.watch(".comment[data-author]", async(node) => {
-    if (node.querySelector(".bf2-comment-ex")) {
+    if (node.querySelector(".bf2-comment-ex") || node.classList.contains("is-hidden")) {
         return;
     }
     if (withAvatars) {
