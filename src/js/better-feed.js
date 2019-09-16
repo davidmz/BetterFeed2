@@ -16,6 +16,7 @@ import "./modules/no-read-more";
 import "./modules/comment-clouds";
 import "./modules/hide-arabic";
 import "./modules/hanging-punct";
+import "./modules/show-timestamps";
 
 if (!/^\/(attachments\/|files\/|bookmarklet|v\d\/)/.test(location.pathname)) {
     if (!MutationObserver || !Promise) {
