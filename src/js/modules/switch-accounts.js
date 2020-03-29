@@ -152,11 +152,7 @@ async function accountClicked(el) {
 
     if (token) {
         lb.showContent("Please wait\u2026");
-        const d = new Date();
-        d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
-        document.cookie = `${cookieName}=${encodeURIComponent(token)}; path=/; expires=${d.toUTCString()}`;
-        const newWho = await api.get('/v2/users/whoami', token);
-        localStorage.setItem("whoamiCache", JSON.stringify(newWho.users));
+        localStorage.setItem(cookieName, token);
         location.reload();
     }
 }

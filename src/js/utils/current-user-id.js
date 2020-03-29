@@ -2,7 +2,7 @@ export let userId = null;
 export let authToken = null;
 
 const sitesProps = {
-    "freefeed.net": {
+    "freefeed.net":       {
         cookies: ["freefeedBETA_authToken", "freefeed_authToken"]
     },
     "gamma.freefeed.net": {
@@ -11,7 +11,7 @@ const sitesProps = {
 };
 
 export let siteDomain = location.hostname;
-export let cookieName = "freefeed_authToken";
+export let cookieName = "freefeedBETA_authToken";
 
 if (siteDomain in sitesProps) {
     sitesProps[siteDomain].cookies.some(cName => {
@@ -27,9 +27,8 @@ if (siteDomain in sitesProps) {
  * @return {Array.<string>} [userId, token]
  */
 function getUserIdToken(cookieName) {
-    const matches = document.cookie.match(new RegExp(`(?:^|;\\s*)${cookieName}=([^;]*)`));
-    if (matches) {
-        const cookieValue = matches[1];
+    const cookieValue = localStorage.getItem(cookieName);
+    if (cookieValue !== null) {
         const parts = cookieValue.split(".");
         if (parts.length === 3) {
             try {
