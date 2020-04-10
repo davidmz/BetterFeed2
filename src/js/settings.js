@@ -10,7 +10,6 @@ const version = location.pathname.match(/BetterFeed2\/([^\/]+)/);
 if (version) {
     document.querySelector(".version").appendChild(document.createTextNode(version[1]));
 }
-forSelect(document.body, ".local-link", link => link.href += location.search);
 /** page elements fix **/
 
 const sPage = document.querySelector(".content.settings");
