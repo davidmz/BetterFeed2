@@ -1,16 +1,8 @@
-import Cell      from "./utils/cell";
-import Settings  from "./base/settings";
+import Cell from "./utils/cell";
+import Settings from "./base/settings";
 import Messenger from "./utils/message-rpc";
 import forSelect from "./utils/for-select";
 import escapeHTML from "./utils/escape-html";
-
-
-/** page elements fix **/
-const version = location.pathname.match(/BetterFeed2\/([^\/]+)/);
-if (version) {
-    document.querySelector(".version").appendChild(document.createTextNode(version[1]));
-}
-/** page elements fix **/
 
 const sPage = document.querySelector(".content.settings");
 
@@ -18,12 +10,13 @@ const sPage = document.querySelector(".content.settings");
 if (sPage) {
     const parentWindow = (window.parent === window) ? window.opener : window.parent;
 
-    if (!parentWindow || !/[?&]origin=([^&]+)/.exec(location.search)) {
+    if (!parentWindow) {
         alert("Пожалуйста, откройте эту страницу по ссылке из FreeFeed-а");
     }
 
     const
-        parentOrigin = decodeURIComponent(/[?&]origin=([^&]+)/.exec(location.search)[1]),
+        parentOrigin = document.querySelector('meta[name="parentOrigin"]').content,
+        betterFeedVersion = document.querySelector('meta[name="betterFeedVersion"]').content,
         saveButton = document.getElementById("save-settings"),
         checkUpdatesButton = document.getElementById("check-updates"),
         checkBoxes = forSelect(sPage, "input[type='checkbox']"),
@@ -32,6 +25,8 @@ if (sPage) {
 
     /** @type {Settings|null} */
     let settings = null;
+
+    document.querySelector(".version").appendChild(document.createTextNode(betterFeedVersion));
 
     saveButton.addEventListener("click", () => {
         saveButton.disabled = true;

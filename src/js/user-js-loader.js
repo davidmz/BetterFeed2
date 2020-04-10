@@ -34,8 +34,9 @@ if (version !== null) inject(version);
 
 
 function inject(version) {
+    window.__BetterFeedRoot = 'https://cdn.jsdelivr.net/gh/davidmz/BetterFeed2@' + version;
     var e = document.createElement("script");
-    e.src = 'https://davidmz.me/betterfeed-cdn/' + version + '/build/better-feed.min.js';
+    e.src = window.__BetterFeedRoot + '/build/better-feed.min.js';
     e.type = "text/javascript";
     e.charset = "utf-8";
     e.async = true;

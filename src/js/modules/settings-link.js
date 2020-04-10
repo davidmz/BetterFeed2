@@ -2,6 +2,7 @@ import {registerModule} from "./../base/modules";
 import h from "../utils/html";
 import bfRoot from "../utils/bf-root";
 import Lightbox from "../utils/lightbox";
+import escapeHTML from "../utils/escape-html";
 
 const version = process.env.BF2_VERSION;
 
@@ -28,14 +29,19 @@ module.watch(".sidebar", node => {
     link.addEventListener("click", showSettings)
 });
 
-function showSettings() {
-    const url = bfRoot + '/src/html/settings.html?origin=' + encodeURIComponent(location.origin);
+async function showSettings() {
+    const url = bfRoot + '/src/html/settings.html';
+    const html = (await fetch(url).then(r => r.text()))
+        .replace(/\[\[parentOrigin]]/g, escapeHTML(location.origin))
+        .replace(/\[\[betterFeedVersion]]/g, escapeHTML(version))
+        .replace(/\[\[baseURL]]/g, escapeHTML(bfRoot));
+    const htmlUrl = URL.createObjectURL(new Blob([html], {type: "text/html;charset=utf-8"}));
 
     if (/iPhone|iPad/.test(navigator.userAgent)) {
-        window.open(url, "_blank");
+        window.open(htmlUrl, "_blank");
         return;
     }
 
     new Lightbox("bf2-settings-lightbox")
-        .showContent(h("iframe", {src: url, frameborder: "0"}));
+        .showContent(h("iframe", {src: htmlUrl, frameborder: "0"}));
 }

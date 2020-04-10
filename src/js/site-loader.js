@@ -23,7 +23,7 @@ if (MutationObserver && Promise) {
 
         if (localStorage[lsKey] === "1") {
             window.__BetterFeedOnSite = true;
-            inject.JavaScript("https://davidmz.me/betterfeed-cdn/v2.1.5/build/better-feed.user.js");
+            inject.JavaScript("https://cdn.jsdelivr.net/gh/davidmz/BetterFeed2@v2.18.5/build/better-feed.user.js");
         }
     });
 }
