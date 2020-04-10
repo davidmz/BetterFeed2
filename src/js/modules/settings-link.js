@@ -34,7 +34,7 @@ async function showSettings() {
     const html = (await fetch(url).then(r => r.text()))
         .replace(/\[\[parentOrigin]]/g, escapeHTML(location.origin))
         .replace(/\[\[betterFeedVersion]]/g, escapeHTML(version))
-        .replace(/\[\[baseURL]]/g, escapeHTML(bfRoot));
+        .replace(/\[\[baseURL]]/g, escapeHTML(bfRoot + '/'));
     const htmlUrl = URL.createObjectURL(new Blob([html], {type: "text/html;charset=utf-8"}));
 
     if (/iPhone|iPad/.test(navigator.userAgent)) {
