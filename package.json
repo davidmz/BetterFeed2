@@ -1,6 +1,6 @@
 {
   "name": "betterfeed",
-  "version": "2.19.2",
+  "version": "2.19.3",
   "description": "FreeFeed new functions",
   "author": "David Mzareulyan",
   "license": "MIT",
@@ -18,11 +18,11 @@
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
     "html-loader": "^0.4.3",
-    "less": "^2.6.1",
+    "less": "^3.12.2",
     "less-loader": "^2.2.3",
     "local-web-server": "^3.0.7",
     "style-loader": "^0.13.1",
-    "svg-url-loader": "^3.0.0",
+    "svg-url-loader": "^3.0.3",
     "webpack": "^1.13.0"
   },
   "scripts": {
@@ -30,6 +30,6 @@
     "start": "ws --https"
   },
   "dependencies": {
-    "localforage": "^1.4.0"
+    "localforage": "^1.8.1"
   }
 }
