@@ -1,4 +1,4 @@
-import {authToken} from "./current-user-id";
+import {getCurrentAuth} from "./current-user-id";
 import WS from "./ws";
 
 const apiRoot = "https://davidmz.me/frfrfr/likecomm";
@@ -69,7 +69,7 @@ export default class {
             if (!opts.headers) {
                 opts.headers = {};
             }
-            opts.headers["X-Authentication-Token"] = authToken;
+            opts.headers["X-Authentication-Token"] = getCurrentAuth().authToken;
         }
 
         const resp = await (await fetch(input, opts)).json();

@@ -1,4 +1,4 @@
-import {registerModule} from "./../base/modules";
+import {registerModule} from "../base/modules";
 import LS from "../utils/cross-local-storage";
 import h from "../utils/html";
 import {html} from "../utils/html-tpl";
@@ -6,7 +6,7 @@ import Lightbox from "../utils/lightbox";
 import IAm from "../utils/i-am";
 import * as api from "../utils/api";
 import {defaultPic, getPic} from '../utils/userpics';
-import {cookieName, authToken} from '../utils/current-user-id';
+import {cookieName, getCurrentAuth} from '../utils/current-user-id';
 import closestParent from "../utils/closest-parent";
 
 const module = registerModule("switch-accounts");
@@ -58,10 +58,12 @@ async function genHtml() {
 
     let form = h(`form.${CSS_PREFIX}new-form`,
         html`
-        <p>Please enter username and password of your other account:</p>
-        <p><input class="form-control" type="text" name="username" placeholder="Username" required></p>
-        <p><input class="form-control" type="password" name="password" placeholder="Password" required></p>
-        <p><button type="submit" class="btn btn-default">Add</button></p>
+            <p>Please enter username and password of your other account:</p>
+            <p><input class="form-control" type="text" name="username" placeholder="Username" required></p>
+            <p><input class="form-control" type="password" name="password" placeholder="Password" required></p>
+            <p>
+                <button type="submit" class="btn btn-default">Add</button>
+            </p>
         `
     );
     form.addEventListener("submit", e => {
@@ -69,20 +71,21 @@ async function genHtml() {
         let username = form.elements['username'].value;
         let password = form.elements['password'].value;
         (async () => {
-            let d = await api.anonFormPost("/v1/session", `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
-            if (d.err) {
-                alert(d.err);
+            let resp = await api.anonFormPost("/v1/session", `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
+            if (resp.err) {
+                alert(resp.err);
                 return;
             }
             //noinspection UnnecessaryLocalVariableJS
-            let {users: {username: u}, authToken} = d;
+            let {users: {username: u}, authToken} = resp;
             await addAccount(u, authToken);
             lb.showContent(await genHtml());
         })();
     });
 
     return h("",
-        html`<div class="${CSS_PREFIX}header">Switch account to:</div>`,
+        html`
+            <div class="${CSS_PREFIX}header">Switch account to:</div>`,
         h(
             `.${CSS_PREFIX}accounts`,
             (await readAccList()).map(
@@ -94,7 +97,8 @@ async function genHtml() {
                 }
             )
         ),
-        html`<div class="${CSS_PREFIX}add-new"><a><i class="fa fa-plus"></i> Add new account</a></div>`,
+        html`
+            <div class="${CSS_PREFIX}add-new"><a><i class="fa fa-plus"></i> Add new account</a></div>`,
         form
     );
 }
@@ -107,17 +111,19 @@ function addAccountClicked(el) {
 async function readAccList() {
     let list = await ls.get(ACC_LIST_KEY);
     if (!list) {
-        list = [{username: (await IAm.ready).me, token: authToken}];
+        list = [{username: (await IAm.ready).me, token: getCurrentAuth().authToken}];
     }
     return list;
 }
 
 async function addAccount(username, token) {
     let list = await readAccList();
-    if (list.some(a => a.username === username)) {
-        return;
+    const found = list.find(a => a.username === username);
+    if (found) {
+        found.token = token;
+    } else {
+        list.push({username, token});
     }
-    list.push({username, token});
     await ls.set(ACC_LIST_KEY, list);
 }
 
@@ -139,8 +145,9 @@ function removeAccount(el) {
 }
 
 async function accountClicked(el) {
+    const currentUsername = (await IAm.ready).me;
     let username = el.dataset['username'];
-    if (username === (await IAm.ready).me) return;
+    if (username === currentUsername) return;
     let token = null;
     (await readAccList()).some(a => {
         if (a.username === username) {
@@ -152,6 +159,10 @@ async function accountClicked(el) {
 
     if (token) {
         lb.showContent("Please wait\u2026");
+        // Save the current token of current account
+        await addAccount(currentUsername, getCurrentAuth().authToken);
+
+        // Set the new token
         localStorage.setItem(cookieName, token);
         location.reload();
     }

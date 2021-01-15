@@ -1,6 +1,6 @@
 import "../styles/common.less";
 import {startObserver} from "./base/modules";
-import {userId} from "./utils/current-user-id";
+import {getCurrentAuth} from "./utils/current-user-id";
 import IAm from "./utils/i-am";
 import docLoaded from "./utils/doc-loaded";
 import Settings from "./base/settings";
@@ -18,6 +18,8 @@ import "./modules/hide-arabic";
 import "./modules/hanging-punct";
 import "./modules/show-timestamps";
 
+const {userId} = getCurrentAuth();
+
 if (!/^\/(attachments\/|files\/|bookmarklet|v\d\/)/.test(location.pathname)) {
     if (!MutationObserver || !Promise) {
         console.error("Can not start BetterFeed: MutationObserver & Promise not supported");
@@ -27,7 +29,7 @@ if (!/^\/(attachments\/|files\/|bookmarklet|v\d\/)/.test(location.pathname)) {
         console.warn("BetterFeed already started");
     } else {
         window.__BetterFeed = true;
-        Promise.all([IAm.ready, docLoaded]).then(([iAm])=> {
+        Promise.all([IAm.ready, docLoaded]).then(([iAm]) => {
             start(new Settings(iAm.bf2Props));
         });
     }
@@ -43,7 +45,7 @@ function start(settings) {
 
     msg.on("getSettings", () => settings.toJSON());
 
-    msg.on("saveSettings", async(o) => {
+    msg.on("saveSettings", async (o) => {
         const iAm = await IAm.ready;
         await iAm.saveProps(new Settings(o));
         location.reload(true);

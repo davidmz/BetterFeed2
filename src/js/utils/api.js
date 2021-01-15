@@ -1,13 +1,13 @@
-import {authToken} from './current-user-id';
+import {getCurrentAuth} from './current-user-id';
 
 const apiRoot = "https://freefeed.net";
 
-export function get(path, token = authToken) {
+export function get(path) {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', apiURL(path));
         xhr.responseType = 'json';
-        xhr.setRequestHeader('X-Authentication-Token', token);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + getCurrentAuth().authToken);
         xhr.onload = function () {
             if (xhr.response && "err" in xhr.response) {
                 reject(xhr.response.err);
@@ -24,7 +24,7 @@ export function put(path, body) {
         var xhr = new XMLHttpRequest();
         xhr.open('PUT', apiURL(path));
         xhr.responseType = 'json';
-        xhr.setRequestHeader('X-Authentication-Token', authToken);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + getCurrentAuth().authToken);
         xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         xhr.onload = function () {
             if (xhr.response && "err" in xhr.response) {
@@ -42,7 +42,7 @@ export function del(path, body) {
         var xhr = new XMLHttpRequest();
         xhr.open('DELETE', apiURL(path));
         xhr.responseType = 'json';
-        xhr.setRequestHeader('X-Authentication-Token', authToken);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + getCurrentAuth().authToken);
         xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         xhr.onload = function () {
             if (xhr.response && "err" in xhr.response) {
@@ -60,7 +60,7 @@ export function post(path, body) {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', apiURL(path));
         xhr.responseType = 'json';
-        xhr.setRequestHeader('X-Authentication-Token', authToken);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + getCurrentAuth().authToken);
         xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         xhr.onload = function () {
             if (xhr.response && "err" in xhr.response) {
