@@ -24,7 +24,9 @@ module.watch(".sidebar", node => {
         h(".box-footer", version),
     );
 
-    node.insertBefore(html, null);
+    const someBox = node.querySelector(".box");
+
+    someBox.parentNode.insertBefore(html, null);
 
     link.addEventListener("click", showSettings)
 });
