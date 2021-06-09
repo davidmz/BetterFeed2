@@ -17,6 +17,7 @@ import "./modules/comment-clouds";
 import "./modules/hide-arabic";
 import "./modules/hanging-punct";
 import "./modules/show-timestamps";
+import "./modules/no-comment-more";
 
 const {userId} = getCurrentAuth();
 
