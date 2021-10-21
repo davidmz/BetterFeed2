@@ -18,6 +18,7 @@ import "./modules/hide-arabic";
 import "./modules/hanging-punct";
 import "./modules/show-timestamps";
 import "./modules/no-comment-more";
+import "./modules/previews-in-comments";
 
 const {userId} = getCurrentAuth();
 
