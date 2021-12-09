@@ -1,5 +1,5 @@
 import bfRoot from "../utils/bf-root";
-import "file?name=[name].[ext]!../../styles/default-userpic-50.png";
+import "file-loader?name=[name].[ext]!../../styles/default-userpic-50.png";
 
 export const defaultPic = `${bfRoot}/build/default-userpic-50.png`;
 const picRegistry = new Map;
