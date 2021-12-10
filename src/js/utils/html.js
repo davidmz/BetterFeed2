@@ -1,5 +1,5 @@
-import isArray from "./is-array";
 import { isSafeHTML } from "./html-tpl";
+import isArray from "./is-array";
 
 /**
  * h("tag.class", {attr: val}, child)
@@ -16,42 +16,50 @@ import { isSafeHTML } from "./html-tpl";
  * @param {Node|string|Array} [children]
  * @return {HTMLElement}
  */
-export default function h(tagName, attrs, children) {
-    var i, k;
-    var tagParts = tagName.split(".");
-    var tn = tagParts.shift() || "div";
-    var el;
-    if (tn === "$") {
-        el = document.createDocumentFragment();
-    } else {
-        el = document.createElement(tn);
-        if (tagParts.length > 0) {
-            el.className = tagParts.join(" ");
-        }
+export default function h(tagName, attrs /* , children */) {
+  var i, k;
+  var tagParts = tagName.split(".");
+  var tn = tagParts.shift() || "div";
+  var el;
+  if (tn === "$") {
+    el = document.createDocumentFragment();
+  } else {
+    el = document.createElement(tn);
+    if (tagParts.length > 0) {
+      el.className = tagParts.join(" ");
     }
+  }
 
-    var chStart = 1;
-    if (arguments.length > 1 && typeof attrs === "object" && !(attrs instanceof Node) && !isArray(attrs) && !isSafeHTML(attrs)) {
-        for (k in attrs) if (attrs.hasOwnProperty(k)) el.setAttribute(k, attrs[k]);
-        chStart = 2;
-    }
+  var chStart = 1;
+  if (
+    arguments.length > 1 &&
+    typeof attrs === "object" &&
+    !(attrs instanceof Node) &&
+    !isArray(attrs) &&
+    !isSafeHTML(attrs)
+  ) {
+    for (k in attrs)
+      if (Object.prototype.hasOwnProperty.call(attrs, k))
+        el.setAttribute(k, attrs[k]);
+    chStart = 2;
+  }
 
-    if (arguments.length > chStart) {
-        for (i = chStart; i < arguments.length; i++) {
-            append(el, arguments[i]);
-        }
+  if (arguments.length > chStart) {
+    for (i = chStart; i < arguments.length; i++) {
+      append(el, arguments[i]);
     }
-    return el;
-};
+  }
+  return el;
+}
 
 function append(el, it) {
-    if (it instanceof Node) {
-        el.appendChild(it);
-    } else if (isArray(it)) {
-        it.forEach(append.bind(null, el));
-    } else if (typeof it === "string") {
-        el.appendChild(document.createTextNode(it));
-    } else if (isSafeHTML(it)) {
-        el.insertAdjacentHTML('beforeEnd', it.toString())
-    }
+  if (it instanceof Node) {
+    el.appendChild(it);
+  } else if (isArray(it)) {
+    it.forEach(append.bind(null, el));
+  } else if (typeof it === "string") {
+    el.appendChild(document.createTextNode(it));
+  } else if (isSafeHTML(it)) {
+    el.insertAdjacentHTML("beforeEnd", it.toString());
+  }
 }

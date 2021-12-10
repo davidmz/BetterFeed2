@@ -1,4 +1,5 @@
-const matchesMethod = ("matches" in HTMLElement.prototype) ? "matches" : "msMatchesSelector";
+const matchesMethod =
+  "matches" in HTMLElement.prototype ? "matches" : "msMatchesSelector";
 
 /**
  *
@@ -6,5 +7,6 @@ const matchesMethod = ("matches" in HTMLElement.prototype) ? "matches" : "msMatc
  * @param {String} selector
  * @return {Boolean}
  */
-export default function (node, selector) { return node[matchesMethod](selector); }
-
+export default function (node, selector) {
+  return node[matchesMethod](selector);
+}
