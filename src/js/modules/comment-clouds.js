@@ -6,12 +6,9 @@ import "../../styles/comment-clouds.less";
 
 const module = registerModule("comment-clouds");
 
-const usersWithAvatars = new Map();
 let withAvatars = false;
-let style = null;
 
 module.init(settings => {
-    style = document.head.appendChild(h("style.bf2-comments-avatars")).sheet;
     withAvatars = (settings.commentCloudsMode === 2);
     if (withAvatars) {
         document.body.classList.add("bf2-comments-with-avatars");
@@ -24,13 +21,9 @@ module.watch(".comment[data-author]", async(node) => {
     }
     if (withAvatars) {
         const author = node.dataset["author"];
-        node.appendChild(h(".bf2-comment-avatar.bf2-comment-ex"));
-
-        if (!usersWithAvatars.has(author)) {
-            usersWithAvatars.set(author, true);
-            const pic = await getPic(author || (await IAm.ready).me);
-            style.insertRule(`.comment[data-author="${author}"] .bf2-comment-avatar { background-image: url(${pic}); }`, 0);
-        }
+        const ava = node.appendChild(h(".bf2-comment-avatar.bf2-comment-ex"));
+        const pic = await getPic(author || (await IAm.ready).me);
+        ava.style.backgroundImage = "url(" + pic + ")";
     } else {
         node.appendChild(h("i.fa.fa-comment.icon.bf2-ico-bg.bf2-comment-ex"));
     }

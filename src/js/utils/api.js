@@ -1,95 +1,59 @@
-import {getCurrentAuth} from './current-user-id';
+import { getCurrentAuth } from "./current-user-id";
 
 const apiRoot = "https://freefeed.net";
 
-export function get(path) {
-    return new Promise(function (resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', apiURL(path));
-        xhr.responseType = 'json';
-        xhr.setRequestHeader('Authorization', 'Bearer ' + getCurrentAuth().authToken);
-        xhr.onload = function () {
-            if (xhr.response && "err" in xhr.response) {
-                reject(xhr.response.err);
-            } else {
-                resolve(xhr.response);
-            }
-        };
-        xhr.send();
-    });
+export async function get(path) {
+  const resp = await fetch(apiURL(path), {
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + getCurrentAuth().authToken,
+    },
+  }).then((r) => r.json());
+
+  if (resp && "err" in resp) {
+    throw new Error(resp.err);
+  }
+  return resp;
 }
 
-export function put(path, body) {
-    return new Promise(function (resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('PUT', apiURL(path));
-        xhr.responseType = 'json';
-        xhr.setRequestHeader('Authorization', 'Bearer ' + getCurrentAuth().authToken);
-        xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        xhr.onload = function () {
-            if (xhr.response && "err" in xhr.response) {
-                reject(xhr.response.err);
-            } else {
-                resolve(xhr.response);
-            }
-        };
-        xhr.send(body);
-    });
+export async function put(path, body) {
+  const resp = await fetch(apiURL(path), {
+    method: "PUT",
+    body,
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + getCurrentAuth().authToken,
+    },
+  }).then((r) => r.json());
+
+  if (resp && "err" in resp) {
+    throw new Error(resp.err);
+  }
+  return resp;
 }
 
-export function del(path, body) {
-    return new Promise(function (resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('DELETE', apiURL(path));
-        xhr.responseType = 'json';
-        xhr.setRequestHeader('Authorization', 'Bearer ' + getCurrentAuth().authToken);
-        xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        xhr.onload = function () {
-            if (xhr.response && "err" in xhr.response) {
-                reject(xhr.response.err);
-            } else {
-                resolve(xhr.response);
-            }
-        };
-        xhr.send(body);
-    });
-}
+export async function anonFormPost(path, body) {
+  const resp = await fetch(apiURL(path), {
+    method: "PUT",
+    body,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      Accept: "application/json",
+      Authorization: "Bearer " + getCurrentAuth().authToken,
+    },
+  }).then((r) => r.json());
 
-export function post(path, body) {
-    return new Promise(function (resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', apiURL(path));
-        xhr.responseType = 'json';
-        xhr.setRequestHeader('Authorization', 'Bearer ' + getCurrentAuth().authToken);
-        xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        xhr.onload = function () {
-            if (xhr.response && "err" in xhr.response) {
-                reject(xhr.response.err);
-            } else {
-                resolve(xhr.response);
-            }
-        };
-        xhr.send(body);
-    });
-}
-
-export function anonFormPost(path, body) {
-    return new Promise(function (resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', apiURL(path));
-        xhr.responseType = 'json';
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-        xhr.onload = function () {
-            if (xhr.response && "err" in xhr.response) {
-                reject(xhr.response.err);
-            } else {
-                resolve(xhr.response);
-            }
-        };
-        xhr.send(body);
-    });
+  if (resp && "err" in resp) {
+    throw new Error(resp.err);
+  }
+  return resp;
 }
 
 function apiURL(path) {
-    return apiRoot + path + ((path.indexOf("?") !== -1) ? "&" : "?") + "_initiator=betterfeed2";
+  return (
+    apiRoot +
+    path +
+    (path.indexOf("?") !== -1 ? "&" : "?") +
+    "_initiator=betterfeed2"
+  );
 }

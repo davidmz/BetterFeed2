@@ -1,5 +1,6 @@
 import * as api from './api';
-import * as uPics from './userpics';
+// Importing fetch spy before the whoami request
+import './userpics';
 import h from "./html";
 
 const prefsName = "me.davidmz.BetterFeed2";
@@ -71,15 +72,8 @@ IAm.update = () => {
         iAm.me = resp.users.username;
         iAm.myID = resp.users.id;
         iAm.myScreenName = resp.users.screenName;
-        uPics.setPic(resp.users.username, resp.users.profilePictureMediumUrl);
-        iAm.friends = resp.subscribers.map(it => {
-            uPics.setPic(it.username, it.profilePictureMediumUrl);
-            return it.username;
-        });
-        iAm.readers = resp.users.subscribers.map(it => {
-            uPics.setPic(it.username, it.profilePictureMediumUrl);
-            return it.username;
-        });
+        iAm.friends = resp.subscribers.map(it => it.username);
+        iAm.readers = resp.users.subscribers.map(it => it.username);
         iAm.banIds = resp.users.banIds;
         iAm.bf2Props = (resp.users.frontendPreferences[prefsName] || {});
 
