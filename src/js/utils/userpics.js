@@ -1,5 +1,6 @@
 import "file-loader?name=[name].[ext]!../../styles/default-userpic-50.png";
 import bfRoot from "../utils/bf-root";
+import { get } from "./api";
 import { spyFetch } from "./fetch-proxy";
 
 export const defaultPic = `${bfRoot}/build/default-userpic-50.png`;
@@ -28,22 +29,42 @@ spyFetch(({ resp }) => {
     }
   }
 
-  for (const user of accounts) {
-    const pic = user.profilePictureMediumUrl || defaultPic;
-    const resolve = resolvers.get(user.username);
-    if (resolve) {
-      resolve(pic);
-    } else {
-      picRegistry.set(user.username, Promise.resolve(pic));
-    }
+  for (const acc of accounts) {
+    setPic(acc.username, acc.profilePictureMediumUrl);
   }
 });
+
+const batchTimeout = 1000; // ms
+let batchTimer = 0;
 
 export async function getPic(username) {
   let p = picRegistry.get(username);
   if (!p) {
     p = new Promise((resolve) => resolvers.set(username, resolve));
     picRegistry.set(username, p);
+    clearTimeout(batchTimer);
+    batchTimer = setTimeout(processBatch, batchTimeout);
   }
   return p;
+}
+
+function setPic(username, pic) {
+  if (!pic) {
+    return;
+  }
+  const resolve = resolvers.get(username);
+  if (resolve) {
+    resolvers.delete(username);
+    resolve(pic);
+  } else {
+    picRegistry.set(username, Promise.resolve(pic));
+  }
+}
+
+async function processBatch() {
+  batchTimer = 0;
+  for (const username of resolvers.keys()) {
+    const { users: user } = await get(`/v1/users/${username}`);
+    setPic(user.username, user.profilePictureMediumUrl);
+  }
 }
