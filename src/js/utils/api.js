@@ -34,7 +34,7 @@ export async function put(path, body) {
 
 export async function anonFormPost(path, body) {
   const resp = await fetch(apiURL(path), {
-    method: "PUT",
+    method: "POST",
     body,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
