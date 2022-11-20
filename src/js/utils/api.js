@@ -21,6 +21,7 @@ export async function put(path, body) {
     method: "PUT",
     body,
     headers: {
+      "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: "Bearer " + getCurrentAuth().authToken,
     },
