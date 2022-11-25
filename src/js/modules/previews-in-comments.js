@@ -1,6 +1,6 @@
+import "../../styles/previews-in-comments.less";
 import h from "../utils/html";
 import { registerModule } from "./../base/modules";
-import "../../styles/previews-in-comments.less";
 
 const module = registerModule("previews-in-comments", false);
 
@@ -8,6 +8,10 @@ const YOUTUBE_VIDEO_RE =
   /^https?:\/\/(?:www\.|m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?(?:v=|.+&v=)))([\w-]+)/i;
 
 module.watch(".comment", async (node) => {
+  if (node.querySelector(".bf2-prvs")) {
+    return;
+  }
+
   const links = node.querySelectorAll(".media-link");
 
   const previews = [];

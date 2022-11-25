@@ -1,8 +1,8 @@
-import { registerModule } from "./../base/modules";
-import h from "../utils/html";
-import { getPic } from "../utils/userpics";
-import IAm from "../utils/i-am";
 import "../../styles/comment-clouds.less";
+import h from "../utils/html";
+import IAm from "../utils/i-am";
+import { getPic } from "../utils/userpics";
+import { registerModule } from "./../base/modules";
 
 const module = registerModule("comment-clouds");
 
@@ -18,7 +18,7 @@ module.init((settings) => {
 module.watch(".comment[data-author]", async (node) => {
   if (
     node.querySelector(".bf2-comment-ex") ||
-    node.classList.contains("is-hidden")
+    node.classList.contains("comment-is-hidden")
   ) {
     return;
   }
