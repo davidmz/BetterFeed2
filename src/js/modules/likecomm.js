@@ -1,11 +1,10 @@
-import { registerModule } from "./../base/modules";
-import LikeAPI from "../utils/likecomm-api";
-import IAm from "../utils/i-am";
 import closestParent from "../utils/closest-parent";
 import forSelect from "../utils/for-select";
 import h from "../utils/html";
+import IAm from "../utils/i-am";
+import LikeAPI from "../utils/likecomm-api";
 import matches from "../utils/matches";
-import "../../styles/likecomm.less";
+import { registerModule } from "./../base/modules";
 
 const module = registerModule("likecomm"),
   authModule = registerModule("likecomm-auth", false);

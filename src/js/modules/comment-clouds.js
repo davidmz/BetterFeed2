@@ -1,4 +1,3 @@
-import "../../styles/comment-clouds.less";
 import h from "../utils/html";
 import IAm from "../utils/i-am";
 import { getPic } from "../utils/userpics";

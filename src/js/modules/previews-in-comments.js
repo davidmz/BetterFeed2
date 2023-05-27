@@ -1,4 +1,3 @@
-import "../../styles/previews-in-comments.less";
 import h from "../utils/html";
 import { registerModule } from "./../base/modules";
 

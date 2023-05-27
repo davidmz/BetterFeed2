@@ -1,9 +1,6 @@
-import "file-loader?name=[name].[ext]!../../styles/default-userpic-50.png";
-import bfRoot from "../utils/bf-root";
 import { get } from "./api";
 import { spyFetch } from "./fetch-proxy";
 
-export const defaultPic = `${bfRoot}/build/default-userpic-50.png`;
 const picRegistry = new Map();
 const resolvers = new Map();
 

@@ -1,4 +1,5 @@
-import "../styles/common.less";
+import styleInject from "style-inject";
+import styles from "../styles/index.less";
 import { startObserver } from "./base/modules";
 import Settings from "./base/settings";
 import "./modules/comment-clouds";
@@ -41,6 +42,7 @@ if (!/^\/(attachments\/|files\/|bookmarklet|v\d\/)/.test(location.pathname)) {
  * @param {Settings} settings
  */
 function start(settings) {
+  styleInject(styles);
   startObserver(settings);
 
   const msg = new Messenger();

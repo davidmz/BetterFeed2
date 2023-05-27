@@ -1,13 +1,14 @@
+import defaultPic from "../../styles/default-userpic-50.png?url";
 import { registerModule } from "../base/modules";
+import * as api from "../utils/api";
+import closestParent from "../utils/closest-parent";
 import LS from "../utils/cross-local-storage";
+import { cookieName, getCurrentAuth } from "../utils/current-user-id";
 import h from "../utils/html";
 import { html } from "../utils/html-tpl";
-import Lightbox from "../utils/lightbox";
 import IAm from "../utils/i-am";
-import * as api from "../utils/api";
-import { defaultPic, getPic } from "../utils/userpics";
-import { cookieName, getCurrentAuth } from "../utils/current-user-id";
-import closestParent from "../utils/closest-parent";
+import Lightbox from "../utils/lightbox";
+import { getPic } from "../utils/userpics";
 
 const module = registerModule("switch-accounts");
 

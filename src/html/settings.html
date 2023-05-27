@@ -1,93 +1,121 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>Настройки BetterFeed</title>
 
-    <meta name="parentOrigin" content="[[parentOrigin]]">
-    <meta name="betterFeedVersion" content="[[betterFeedVersion]]">
-    <base href="[[baseURL]]">
+    <meta name="parentOrigin" content="[[parentOrigin]]" />
+    <meta name="betterFeedVersion" content="[[betterFeedVersion]]" />
+    <base href="[[baseURL]]" />
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css"
+    />
     <style>
-        body {
-            padding-top:    50px;
-            padding-bottom: 110px;
-        }
+      body {
+        padding-top: 50px;
+        padding-bottom: 110px;
+      }
 
-        label {
-            font-weight: normal;
-        }
+      label {
+        font-weight: normal;
+      }
 
-        p.shift {
-            margin-left: 1.33em;
-        }
+      p.shift {
+        margin-left: 1.33em;
+      }
 
-        p.bg-warning {
-            padding: 0.5em;
-        }
+      p.bg-warning {
+        padding: 0.5em;
+      }
 
-        footer {
-            padding-top: 30px;
-            background:  white;
-            background:  linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 30px);
-        }
+      footer {
+        padding-top: 30px;
+        background: white;
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 1) 30px
+        );
+      }
     </style>
-</head>
-<body>
-
-<div class="navbar-fixed-top">
-    <div class="container">
+    <script type="module" src="./build/settings.mjs"></script>
+  </head>
+  <body>
+    <div class="navbar-fixed-top">
+      <div class="container">
         <ul class="breadcrumb">
-            <li>
-                <strong>BetterFeed</strong>
-                <small class="version"></small>
-            </li>
-            <li><strong>Настройки</strong></li>
-            <li><a href="https://davidmz.github.io/BetterFeed2/donate.html" target="_blank" class="label label-primary"
-                   style="font-size: inherit; font-weight: inherit;"><i class="fa fa-thumbs-o-up"></i> Сказать
-                    спасибо</a></li>
-            <li><a href="https://github.com/davidmz/BetterFeed2" target="_blank"><i class="fa fa-github"></i> GitHub</a>
-            </li>
-            <li><a href="https://freefeed.net/betterfeed" target="_blank">@betterfeed</a></li>
+          <li>
+            <strong>BetterFeed</strong>
+            <small class="version"></small>
+          </li>
+          <li><strong>Настройки</strong></li>
+          <li>
+            <a
+              href="https://davidmz.github.io/BetterFeed2/donate.html"
+              target="_blank"
+              class="label label-primary"
+              style="font-size: inherit; font-weight: inherit"
+              ><i class="fa fa-thumbs-o-up"></i> Сказать спасибо</a
+            >
+          </li>
+          <li>
+            <a href="https://github.com/davidmz/BetterFeed2" target="_blank"
+              ><i class="fa fa-github"></i> GitHub</a
+            >
+          </li>
+          <li>
+            <a href="https://freefeed.net/betterfeed" target="_blank"
+              >@betterfeed</a
+            >
+          </li>
         </ul>
+      </div>
     </div>
-</div>
 
-<div class="container">
-    <h2>Настройки BetterFeed</h2>
+    <div class="container">
+      <h2>Настройки BetterFeed</h2>
 
-    <div class="content loading">
+      <div class="content loading">
         <p>Загрузка&hellip;</p>
-    </div>
+      </div>
 
-    <div class="content settings hidden">
-
+      <div class="content settings hidden">
         <h3>Крупные улучшения</h3>
 
         <p>
-            <label>
-                <input type="checkbox" id="switch-accounts">
-                Разрешить быстрое переключение между аккаунтами без ввода пароля.
-            </label>
+          <label>
+            <input type="checkbox" id="switch-accounts" />
+            Разрешить быстрое переключение между аккаунтами без ввода пароля.
+          </label>
         </p>
         <p class="bg-warning shift">
-            Данные для быстрого переключения аккаунтов (access token-ы) хранятся в вашем браузере и доступны для любого
-            пользователя браузера. В другом браузере или на другом устройстве пароли аккаунтов надо будет вводить
-            заново.<br>
-            Если вы хотите удалить сохранённые данные, то, находясь в любом из аккаунтов, удалите
-            из диалога переключения все аккаунты кроме текущего.
+          Данные для быстрого переключения аккаунтов (access token-ы) хранятся в
+          вашем браузере и доступны для любого пользователя браузера. В другом
+          браузере или на другом устройстве пароли аккаунтов надо будет вводить
+          заново.<br />
+          Если вы хотите удалить сохранённые данные, то, находясь в любом из
+          аккаунтов, удалите из диалога переключения все аккаунты кроме
+          текущего.
         </p>
         <p>
           <label>
-              <input type="checkbox" id="previews-in-comments">
-              Показывать превьюшки картинок и YouTube-ссылок, упомянутых в комментариях.
+            <input type="checkbox" id="previews-in-comments" />
+            Показывать превьюшки картинок и YouTube-ссылок, упомянутых в
+            комментариях.
           </label>
         </p>
 
-      <h3>Мелкие улучшения</h3>
+        <h3>Мелкие улучшения</h3>
         <!--
         <p>
             <label>
@@ -98,83 +126,93 @@
         -->
 
         <p>
-            <label>
-                <input type="checkbox" id="moon">
-                Рядом с логотипом Freefeed-а показывать текущую фазу Луны.
-            </label>
+          <label>
+            <input type="checkbox" id="moon" />
+            Рядом с логотипом Freefeed-а показывать текущую фазу Луны.
+          </label>
         </p>
 
         <p>
-            <label>
-                <input type="checkbox" id="no-read-more">
-                Отключить сворачивание текстов постов и комментариев ("Expand/Read more").
-            </label>
+          <label>
+            <input type="checkbox" id="no-read-more" />
+            Отключить сворачивание текстов постов и комментариев ("Expand/Read
+            more").
+          </label>
         </p>
 
         <p>
-            <label>
-                <input type="checkbox" id="comment-clouds">
-                Изменять облачка около комментариев:
-            </label>
+          <label>
+            <input type="checkbox" id="comment-clouds" />
+            Изменять облачка около комментариев:
+          </label>
         </p>
         <p class="shift">
-            <label>
-                <input type="radio" name="comment-clouds-mode" value="1" data-enabled-if="comment-clouds">
-                Показывать разноцветные облачка &mdash; оранжевые у вас, тёмно-серые у автора треда,
-                голубые у ваших френдов, светло-серые у ваших читателей.
-            </label>
+          <label>
+            <input
+              type="radio"
+              name="comment-clouds-mode"
+              value="1"
+              data-enabled-if="comment-clouds"
+            />
+            Показывать разноцветные облачка &mdash; оранжевые у вас, тёмно-серые
+            у автора треда, голубые у ваших френдов, светло-серые у ваших
+            читателей.
+          </label>
         </p>
         <p class="shift">
-            <label>
-                <input type="radio" name="comment-clouds-mode" value="2" data-enabled-if="comment-clouds">
-                Заменять облачка на юзерпики авторов комментариев.
-            </label>
+          <label>
+            <input
+              type="radio"
+              name="comment-clouds-mode"
+              value="2"
+              data-enabled-if="comment-clouds"
+            />
+            Заменять облачка на юзерпики авторов комментариев.
+          </label>
         </p>
         <p>
-            <label>
-                <input type="checkbox" id="hide-arabic">
-                Скрывать посты на арабских/персидских языках.
-            </label>
+          <label>
+            <input type="checkbox" id="hide-arabic" />
+            Скрывать посты на арабских/персидских языках.
+          </label>
         </p>
         <p>
-            <label>
-                <input type="checkbox" id="hanging-punct">
-                Висячая пунктуация в постах и комментариях.
-            </label>
+          <label>
+            <input type="checkbox" id="hanging-punct" />
+            Висячая пунктуация в постах и комментариях.
+          </label>
         </p>
         <p>
-            <label>
-                <input type="checkbox" id="show-timestamps">
-                Всегда показывать полностью время создания постов и комментариев.
-            </label>
+          <label>
+            <input type="checkbox" id="show-timestamps" />
+            Всегда показывать полностью время создания постов и комментариев.
+          </label>
         </p>
         <p>
-            <label>
-                <input type="checkbox" id="no-comment-more">
-                Не показывать ссылки «more ▼» рядом с комментариями.
-            </label>
+          <label>
+            <input type="checkbox" id="no-comment-more" />
+            Не показывать ссылки «more ▼» рядом с комментариями.
+          </label>
         </p>
+      </div>
     </div>
-</div>
 
-<footer class="navbar-fixed-bottom">
-    <div class="container">
+    <footer class="navbar-fixed-bottom">
+      <div class="container">
         <p>
-            <button id="save-settings" class="btn btn-default" disabled>
-                Сохранить изменения
-            </button>
-            <button id="check-updates" class="btn btn-default pull-right">
-                <span class="glyphicon glyphicon-refresh"></span>
-                Проверить обновления
-            </button>
+          <button id="save-settings" class="btn btn-default" disabled>
+            Сохранить изменения
+          </button>
+          <button id="check-updates" class="btn btn-default pull-right">
+            <span class="glyphicon glyphicon-refresh"></span>
+            Проверить обновления
+          </button>
         </p>
         <p class="help-block">
-            <i class="fa fa-exclamation-triangle"></i>
-            После сохранения настроек страница будет перезагружена.
+          <i class="fa fa-exclamation-triangle"></i>
+          После сохранения настроек страница будет перезагружена.
         </p>
-    </div>
-</footer>
-
-<script src="./build/settings.min.js"></script>
-</body>
+      </div>
+    </footer>
+  </body>
 </html>
