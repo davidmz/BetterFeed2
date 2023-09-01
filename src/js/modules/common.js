@@ -15,7 +15,7 @@ module.init(() => {
     document.body.classList.toggle("bf2-best-of", isBestOf);
     document.body.classList.toggle(
       "bf2-aggregate-page",
-      isHomePage || isBestOf
+      isHomePage || isBestOf,
     );
   });
 
@@ -24,8 +24,8 @@ module.init(() => {
       //noinspection JSUnresolvedVariable
       const reactLink = document.querySelector(
         `a:not(.bf2-user-link)[href="${CSS.escape(
-          e.target.getAttribute("href")
-        )}"]`
+          e.target.getAttribute("href"),
+        )}"]`,
       );
       if (reactLink) {
         e.preventDefault();
@@ -118,7 +118,7 @@ function getCommentAuthor(commentNode) {
   let author = commentNode.dataset["author"];
   if (!author) {
     const authorLink = commentNode.querySelector(
-      ".comment-body > .user-name-wrapper > a"
+      ".comment-body > .user-name-wrapper > a",
     );
     if (authorLink) {
       author = authorLink.getAttribute("href").substr(1);

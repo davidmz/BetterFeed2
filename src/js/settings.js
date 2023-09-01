@@ -15,10 +15,10 @@ if (sPage) {
   }
 
   const parentOrigin = document.querySelector(
-      'meta[name="parentOrigin"]'
+      'meta[name="parentOrigin"]',
     ).content,
     betterFeedVersion = document.querySelector(
-      'meta[name="betterFeedVersion"]'
+      'meta[name="betterFeedVersion"]',
     ).content,
     saveButton = document.getElementById("save-settings"),
     checkUpdatesButton = document.getElementById("check-updates"),
@@ -57,7 +57,7 @@ if (sPage) {
       if (input.id) {
         state.set(
           input.id,
-          input.type === "checkbox" ? input.checked : input.value
+          input.type === "checkbox" ? input.checked : input.value,
         );
       }
     });
@@ -112,7 +112,7 @@ if (sPage) {
 function getRadioValue(radioInputs) {
   return radioInputs.reduce(
     (prevValue, r) => (r.checked ? r.value : prevValue),
-    null
+    null,
   );
 }
 

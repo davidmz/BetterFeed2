@@ -14,7 +14,7 @@ module.watch(
       img.removeAttribute("srcSet");
       drawImage(img);
     }
-  }
+  },
 );
 
 async function isAnimated(src) {

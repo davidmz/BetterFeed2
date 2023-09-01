@@ -24,7 +24,7 @@ const { userId } = getCurrentAuth();
 if (!/^\/(attachments\/|files\/|bookmarklet|v\d\/)/.test(location.pathname)) {
   if (!MutationObserver || !Promise) {
     console.error(
-      "Can not start BetterFeed: MutationObserver & Promise not supported"
+      "Can not start BetterFeed: MutationObserver & Promise not supported",
     );
   } else if (userId === null) {
     console.error("Can not start BetterFeed: user not logged in");
@@ -65,7 +65,7 @@ function checkUpdates() {
   const xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
-    "https://api.github.com/repos/davidmz/BetterFeed2/tags?page=1&per_page=1"
+    "https://api.github.com/repos/davidmz/BetterFeed2/tags?page=1&per_page=1",
   );
   xhr.responseType = "json";
   xhr.onload = () => {
@@ -78,7 +78,7 @@ function checkUpdates() {
         if (newVersion !== oldVersion) {
           if (
             confirm(
-              `Доступна новая версия: ${newVersion}. Она будет установлена после перезагрузки страницы.\n\nПерезагрузить страницу сейчас?`
+              `Доступна новая версия: ${newVersion}. Она будет установлена после перезагрузки страницы.\n\nПерезагрузить страницу сейчас?`,
             )
           ) {
             location.reload(true);

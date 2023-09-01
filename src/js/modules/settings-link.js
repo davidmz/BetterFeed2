@@ -18,7 +18,7 @@ module.watch(".sidebar", (node) => {
     ".bf2-sidebar-box.box",
     h(".box-header-groups", "Add-ons"),
     h(".box-body", h("ul", h("li", link))),
-    h(".box-footer", version)
+    h(".box-footer", version),
   );
 
   const someBox = node.querySelector(".box");
@@ -35,7 +35,7 @@ async function showSettings() {
     .replace(/\[\[betterFeedVersion]]/g, escapeHTML(version))
     .replace(/\[\[baseURL]]/g, escapeHTML(bfRoot + "/"));
   const htmlUrl = URL.createObjectURL(
-    new Blob([html], { type: "text/html;charset=utf-8" })
+    new Blob([html], { type: "text/html;charset=utf-8" }),
   );
 
   if (/iPhone|iPad/.test(navigator.userAgent)) {
@@ -44,6 +44,6 @@ async function showSettings() {
   }
 
   new Lightbox("bf2-settings-lightbox").showContent(
-    h("iframe", { src: htmlUrl, frameborder: "0" })
+    h("iframe", { src: htmlUrl, frameborder: "0" }),
   );
 }

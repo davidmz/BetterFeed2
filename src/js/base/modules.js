@@ -36,7 +36,7 @@ class Module {
     }
     this._initiators.forEach((c) => c(settings));
     this._watchers.forEach(({ selector, callback }) =>
-      forSelect(document.body, selector, (n) => callback(n, settings))
+      forSelect(document.body, selector, (n) => callback(n, settings)),
     );
   }
 
@@ -45,7 +45,7 @@ class Module {
       return;
     }
     this._watchers.forEach(({ selector, callback }) =>
-      forSelect(node, selector, (n) => callback(n, settings))
+      forSelect(node, selector, (n) => callback(n, settings)),
     );
   }
 }
@@ -53,7 +53,7 @@ class Module {
 export function registerModule(
   name,
   enabledByDefault = true,
-  alwaysEnabled = false
+  alwaysEnabled = false,
 ) {
   const m = new Module(name, enabledByDefault, alwaysEnabled);
   registeredModules.set(name, m);

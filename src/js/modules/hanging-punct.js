@@ -36,7 +36,7 @@ module.watch(".post-text, .comment-body", (node) => {
     }
     html = html.replace(
       re,
-      '<span class="bf2-hp bf2-hp-pre bf2-hp-pre-$2">$1</span><span class="bf2-hp bf2-hp-$2">$2</span>'
+      '<span class="bf2-hp bf2-hp-pre bf2-hp-pre-$2">$1</span><span class="bf2-hp bf2-hp-$2">$2</span>',
     );
     helper.innerHTML = html;
     while (helper.firstChild) {

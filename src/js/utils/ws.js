@@ -60,7 +60,7 @@ export default class WS {
     if (this._reconnectTimer === null) {
       this._reconnectTimer = setTimeout(
         () => this.connect(),
-        this._reconnectTimeout
+        this._reconnectTimeout,
       );
     }
   }

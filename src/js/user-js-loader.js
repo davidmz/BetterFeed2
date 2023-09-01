@@ -18,7 +18,7 @@ if (now > nextUpdate) {
   var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
-    "https://api.github.com/repos/davidmz/BetterFeed2/tags?page=1&per_page=1"
+    "https://api.github.com/repos/davidmz/BetterFeed2/tags?page=1&per_page=1",
   );
   xhr.responseType = "json";
   xhr.onload = function () {

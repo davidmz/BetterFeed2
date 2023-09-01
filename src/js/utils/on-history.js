@@ -19,5 +19,5 @@ history.replaceState = (state, title, url) => {
 };
 
 window.addEventListener("popstate", () =>
-  listeners.forEach((c) => c(location))
+  listeners.forEach((c) => c(location)),
 );

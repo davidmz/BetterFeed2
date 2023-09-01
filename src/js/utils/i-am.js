@@ -19,7 +19,7 @@ export default class IAm {
     this._savingPropsNow = false;
     this._savingIndicator = h(
       ".bf2-saving-settings-indicator",
-      "Saving settings…"
+      "Saving settings…",
     );
   }
 
@@ -59,7 +59,9 @@ export default class IAm {
         if (Object.prototype.hasOwnProperty.call(json, k)) nulls[k] = null;
       await api.put(
         `/v1/users/${this.myID}`,
-        JSON.stringify({ user: { frontendPreferences: { [prefsName]: json } } })
+        JSON.stringify({
+          user: { frontendPreferences: { [prefsName]: json } },
+        }),
       );
     }
     this._savingPropsNow = false;

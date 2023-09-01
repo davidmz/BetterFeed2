@@ -17,9 +17,9 @@ export default class {
     }
     return this.req(
       `${apiRoot}/like?comm_id=${encodeURIComponent(
-        commId
+        commId,
       )}&post_id=${encodeURIComponent(postId)}`,
-      { method: "POST" }
+      { method: "POST" },
     );
   }
 

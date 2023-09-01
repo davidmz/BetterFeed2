@@ -28,7 +28,7 @@ export default class Messenger {
         let resp = this.__listeners.get(action)(value);
         source.postMessage(
           { action: responseAction, requestId, value: resp },
-          origin
+          origin,
         );
       }
     });

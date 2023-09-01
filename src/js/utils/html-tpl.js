@@ -23,6 +23,6 @@ export function html(tpl, ...args) {
     tpl.reduce((acc, part, i) => {
       let a = args[i - 1];
       return acc + (isSafeHTML(a) ? a : escapeHTML(a)) + part;
-    })
+    }),
   );
 }

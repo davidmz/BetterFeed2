@@ -24,7 +24,7 @@ if (MutationObserver && Promise) {
     if (localStorage[lsKey] === "1") {
       window.__BetterFeedOnSite = true;
       inject.JavaScript(
-        "https://cdn.jsdelivr.net/gh/davidmz/BetterFeed2@v2.18.5/build/better-feed.user.js"
+        "https://cdn.jsdelivr.net/gh/davidmz/BetterFeed2@v2.18.5/build/better-feed.user.js",
       );
     }
   });
@@ -54,12 +54,12 @@ actions.push((node = document.body) => {
         h(
           "a",
           { href: "https://github.com/davidmz/BetterFeed2", target: "_blank" },
-          "details"
+          "details",
         ),
-        "). "
+        "). ",
       ),
       h("p", button),
-      h("hr")
+      h("hr"),
     );
 
   pwdForm.parentNode.insertBefore(html, pwdForm);

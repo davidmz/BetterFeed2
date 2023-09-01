@@ -116,9 +116,9 @@ module.watch(".comments .comment .comment-icon", (node) => {
           "data-comm-id": id,
         },
         h("span.bf2-likecomm-count", "0"),
-        h("i.fa.fa-heart.bf2-likecomm-act")
-      )
-    )
+        h("i.fa.fa-heart.bf2-likecomm-act"),
+      ),
+    ),
   );
 });
 
@@ -140,8 +140,8 @@ module.watch(".comments .comment .more-comments-link", (node) => {
       " with ",
       h("span.bf2-likecomm-count", "0"),
       h("i.fa.fa-heart"),
-      h("span.bf2-likecomm-count-label", " likes")
-    )
+      h("span.bf2-likecomm-count-label", " likes"),
+    ),
   );
 });
 
@@ -194,13 +194,13 @@ function drawFoldedLikes(foldedNode) {
   //noinspection UnnecessaryLocalVariableJS
   let [visibleLikes, myVisibleLikes] = forSelect(
     closestParent(foldedNode, ".comments"),
-    ".bf2-likecomm-cont"
+    ".bf2-likecomm-cont",
   ).reduce(
     ([l, m], node) => [
       l + parseInt(node.dataset.lcCount),
       m + parseInt(node.dataset.lcMy),
     ],
-    [0, 0]
+    [0, 0],
   );
 
   likes -= visibleLikes;
@@ -224,7 +224,7 @@ function updateLikesOnPage() {
       } else if (ds.postId) {
         requestLikesForPost(ds.postId);
       }
-    }
+    },
   );
 }
 

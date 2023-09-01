@@ -33,7 +33,7 @@ module.watch(".comment", async (node) => {
             parts[2] = "thumbnails";
           }
           return parts.join("/");
-        }
+        },
       );
       thumb.replace(/\.webp$/, ".jpg");
       previews.push({ thumb, link });
@@ -62,7 +62,7 @@ module.watch(".comment", async (node) => {
     el.addEventListener("click", () => p.link.click());
     el.addEventListener(
       "error",
-      () => (el.src = p.thumb.replace("/thumbnails", ""))
+      () => (el.src = p.thumb.replace("/thumbnails", "")),
     );
     return el;
   });

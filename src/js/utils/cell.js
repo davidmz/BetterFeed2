@@ -50,7 +50,7 @@ export default class Cell {
         let vv = cell.value;
         vv[i] = v;
         cell.value = vv;
-      })
+      }),
     );
     return cell;
   }
@@ -136,7 +136,7 @@ export default class Cell {
 
     var cell = new Cell(getVal());
     events.forEach((event) =>
-      input.addEventListener(event, () => (cell.value = getVal()))
+      input.addEventListener(event, () => (cell.value = getVal())),
     );
     return cell;
   }

@@ -44,8 +44,8 @@ module.watch(".logged-in > .avatar, .logged-in > .userpic", (node) => {
       h(
         ".bf2-switch-acc",
         { title: "Switch account" },
-        h("span.bf2-switch-acc__icon")
-      )
+        h("span.bf2-switch-acc__icon"),
+      ),
     )
     .addEventListener("click", showSwitchDialog);
 });
@@ -86,7 +86,7 @@ async function genHtml() {
       <p>
         <button type="submit" class="btn btn-default">Add</button>
       </p>
-    `
+    `,
   );
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -96,8 +96,8 @@ async function genHtml() {
       let resp = await api.anonFormPost(
         "/v1/session",
         `username=${encodeURIComponent(username)}&password=${encodeURIComponent(
-          password
-        )}`
+          password,
+        )}`,
       );
       if (resp.err) {
         alert(resp.err);
@@ -124,21 +124,21 @@ async function genHtml() {
         let deleter = h(
           `.${CSS_PREFIX}del`,
           { title: "Remove from list" },
-          h("i.fa.fa-times-circle")
+          h("i.fa.fa-times-circle"),
         );
         return h(
           `.${CSS_PREFIX}account${username === me ? ".-current" : ""}`,
           { "data-username": username },
           userPic,
           username,
-          deleter
+          deleter,
         );
-      })
+      }),
     ),
     html` <div class="${CSS_PREFIX}add-new">
       <a><i class="fa fa-plus"></i> Add new account</a>
     </div>`,
-    form
+    form,
   );
 }
 
