@@ -7,6 +7,7 @@ import "./modules/common";
 import "./modules/hanging-punct";
 import "./modules/hide-arabic";
 // import "./modules/ani-gifs";
+import "./modules/emoji-flags";
 import "./modules/moon";
 import "./modules/no-comment-more";
 import "./modules/no-read-more";
