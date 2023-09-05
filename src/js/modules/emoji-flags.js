@@ -43,7 +43,9 @@ async function useEmojiFont() {
     src: url(${fontURL}) format('woff2');
   }
   body {
-    font-family: ${family},${getComputedStyle(document.body).fontFamily};
+    font-family: ${family},${
+      getComputedStyle(document.body).fontFamily
+    } !important;
   }
   `;
   document.head.appendChild(e);
