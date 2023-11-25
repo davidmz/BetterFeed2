@@ -11,6 +11,7 @@ import "./modules/emoji-flags";
 import "./modules/moon";
 import "./modules/no-comment-more";
 import "./modules/no-read-more";
+import "./modules/nonprivate-warn";
 import "./modules/previews-in-comments";
 import "./modules/settings-link";
 import "./modules/show-timestamps";
