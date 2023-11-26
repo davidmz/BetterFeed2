@@ -1,23 +1,9 @@
-.bf2-non-private-warn {
-  --bf2-warn-color: #f66;
-  --bf2-warn-bg-color: #fff;
-}
+.bf2-nonprivate-warning {
+  color: #e55;
+  margin-left: 1.1875rem;
+  margin-top: 0.2em;
 
-.dark-theme .bf2-non-private-warn {
-  --bf2-warn-color: #d36c59;
-  --bf2-warn-bg-color: #17191c;
-}
-
-.bf2-non-private-warn .post-public-icon,
-.bf2-non-private-warn .post-protected-icon {
-  color: var(--bf2-warn-color);
-  background-color: var(--bf2-warn-bg-color);
-  box-shadow:
-    0 0 0 2px var(--bf2-warn-bg-color),
-    0 0 0 4px currentColor;
-  border-radius: 50%;
-}
-
-.bf2-non-private-warn .post-protected-icon {
-  font-size: 0.85rem !important;
+  .dark-theme & {
+    color: #d36c59;
+  }
 }
