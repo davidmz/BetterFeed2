@@ -50,6 +50,12 @@ export async function anonFormPost(path, body) {
   return resp;
 }
 
+export function attPreviewUrl(id, width, height) {
+  return apiURL(
+    `/v4/attachments/${id}/image?width=${width}&height=${height}&redirect`,
+  );
+}
+
 function apiURL(path) {
   return (
     apiRoot +

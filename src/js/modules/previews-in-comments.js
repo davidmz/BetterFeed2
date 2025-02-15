@@ -1,3 +1,4 @@
+import { attPreviewUrl } from "../utils/api";
 import h from "../utils/html";
 import { registerModule } from "./../base/modules";
 
@@ -21,22 +22,17 @@ module.watch(".comment", async (node) => {
     // Freefeed images
     if (
       link.origin === "https://media.freefeed.net" &&
+      link.pathname.startsWith("/attachments/") &&
       /\.(jpg|png|gif|webp)$/.test(link.pathname)
     ) {
-      let thumb = link.href.replace(
-        /\/attachments(\/\w+)?\/[0-9a-f]{8}-/,
-        (t) => {
-          const parts = t.split("/");
-          if (parts.length === 3) {
-            parts.splice(2, 0, "thumbnails");
-          } else if (parts.length === 4) {
-            parts[2] = "thumbnails";
-          }
-          return parts.join("/");
-        },
-      );
-      thumb.replace(/\.webp$/, ".jpg");
-      previews.push({ thumb, link });
+      const m =
+        /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/.exec(
+          link.pathname,
+        );
+      if (!m) {
+        continue;
+      }
+      previews.push({ thumb: attPreviewUrl(m[0], 120, 120), link });
     }
 
     // Youtube
@@ -60,10 +56,6 @@ module.watch(".comment", async (node) => {
       el.classList.add("bf2-prvs__item--video");
     }
     el.addEventListener("click", () => p.link.click());
-    el.addEventListener(
-      "error",
-      () => (el.src = p.thumb.replace("/thumbnails", "")),
-    );
     return el;
   });
 
