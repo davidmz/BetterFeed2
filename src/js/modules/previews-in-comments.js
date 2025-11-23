@@ -7,8 +7,14 @@ const module = registerModule("previews-in-comments", false);
 const YOUTUBE_VIDEO_RE =
   /^https?:\/\/(?:www\.|m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?(?:v=|.+&v=)))([\w-]+)/i;
 
+let haveNativeSupport = false;
+module.init(() => {
+  haveNativeSupport =
+    document.querySelector(".comment_body + [class^='_previews']") !== null;
+});
+
 module.watch(".comment", async (node) => {
-  if (node.querySelector(".bf2-prvs")) {
+  if (haveNativeSupport || node.querySelector(".bf2-prvs")) {
     return;
   }
 
